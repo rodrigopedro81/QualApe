@@ -3,12 +3,20 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../layout/custom_preview.xml" value="0.18667679837892603" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.18177083333333333" />
         <entry key="app/src/main/res/menu/bottom_navigation_menu.xml" value="0.26296296296296295" />
+        <entry key="designsystem/res/drawable/custom_edittext.xml" value="0.3575" />
+        <entry key="designsystem/src/main/res/drawable/custom_edittext.xml" value="0.1805" />
+        <entry key="designsystem/src/main/res/drawable/ic_email.xml" value="0.3425" />
+        <entry key="designsystem/src/main/res/layout/custom_text.xml" value="0.35520833333333335" />
+        <entry key="designsystem/src/main/res/layout/edittext_layout.xml" value="0.35520833333333335" />
+        <entry key="designsystem/src/main/res/layout/main_activity.xml" value="0.18072916666666666" />
       </map>
     </option>
   </component>
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
