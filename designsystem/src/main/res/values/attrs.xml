@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="MainButton">
+        <attr name="enabledColor" format="color"/>
+        <attr name="enabledTextColor" format="color"/>
+        <attr name="disabledColor" format="color"/>
+        <attr name="disabledTextColor" format="color"/>
+        <attr name="button_text" format="string"/>
+        <attr name="corner" format="integer"/>
+        <attr name="fontFamily" format="reference"/>
+    </declare-styleable>
+</resources>
