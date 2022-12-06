@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="CustomEditText">
-        <attr name="custom_edittext" format="string"/>
+    <declare-styleable name="MainEditText">
+        <attr name="label" format="string"/>
+        <attr name="hint" format="string"/>
+        <attr name="startIcon" format="reference"/>
     </declare-styleable>
     <declare-styleable name="MainButton">
         <attr name="enabledColor" format="color"/>

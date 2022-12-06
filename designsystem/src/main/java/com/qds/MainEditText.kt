@@ -1,10 +1,10 @@
-package com.custom
+package com.qds
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.qds.R
 import com.qds.databinding.CustomMainEditTextBinding
 
 class MainEditText @JvmOverloads constructor(
@@ -13,7 +13,7 @@ class MainEditText @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr){
 
-    private var title: String? = null
+    private var text: String? = null
 
     private val binding = CustomMainEditTextBinding
         .inflate(LayoutInflater.from(context), this, true)
@@ -26,19 +26,30 @@ class MainEditText @JvmOverloads constructor(
         attrs?.let { attributeSet ->
             val attributes = context.obtainStyledAttributes(
                 attributeSet,
-                R.styleable.CustomEditText
+                R.styleable.MainEditText
             )
-
-            setBackgroundResource(R.drawable.shape_edittext)
-
-            val titleResId = attributes.getResourceId(R.styleable.CustomEditText_custom_edittext, 0)
-            if(titleResId != 0){
-                title = context.getString(titleResId)
-            }
+            val icon = attributes.getDrawable(R.styleable.MainEditText_startIcon)
+            setIcon(icon)
+            val label = attributes.getString(R.styleable.MainEditText_label)
+            setLabel(label)
+            val hint = attributes.getString(R.styleable.MainEditText_hint)
+            setHint(hint)
 
             attributes.recycle()
 
         }
+    }
+
+    private fun setHint(hint: String?) {
+        binding.field.hint = hint
+    }
+
+    private fun setLabel(label: String?) {
+        binding.textViewTitle.text = label
+    }
+
+    private fun setIcon(icon: Drawable?) {
+        binding.field.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null)
     }
 
 }
