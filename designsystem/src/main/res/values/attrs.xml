@@ -10,7 +10,9 @@
         <attr name="enabledTextColor" format="color"/>
         <attr name="disabledColor" format="color"/>
         <attr name="disabledTextColor" format="color"/>
-        <attr name="button_text" format="string"/>
-        <attr name="corner" format="integer"/>
+        <attr name="android:text"/>
+        <attr name="corner" format="dimension"/>
+        <attr name="buttonStrokeWidth" format="dimension"/>
+        <attr name="buttonStrokeColor" format="color"/>
     </declare-styleable>
 </resources>

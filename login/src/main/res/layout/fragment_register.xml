@@ -1,107 +1,140 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
 
-    <!-- TODO: Update blank fragment layout -->
-
-    <TextView
-        android:id="@+id/Title"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="24dp"
-        android:text="@string/register_title"
-        android:textStyle="bold"
-        android:textColor="@color/grey"
-        android:textSize="32sp"
-        android:layout_margin="24dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintStart_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
-
-    <TextView
-        android:id="@+id/subTitle"
-        android:layout_width="0dp"
-        android:layout_height="19dp"
-        android:layout_marginHorizontal="24dp"
-        android:text="@string/register_subTitle"
-        android:textSize="16sp"
-        android:textColor="@color/light_grey"
-        app:layout_constraintTop_toBottomOf="@id/Title"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
-
-    <com.qds.MainEditText
-        android:id="@+id/name"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:hint="@string/register_name_hint"
-        app:startIcon="@drawable/ic_name"
-        app:label="@string/register_name_label"
-        android:layout_marginHorizontal="24dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="32dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/subTitle"
-        />
+        android:orientation="vertical">
 
-    <com.qds.MainEditText
-        android:id="@+id/email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:hint="@string/register_email_hint"
-        app:startIcon="@drawable/ic_email"
-        app:label="@string/register_email_label"
-        android:layout_marginHorizontal="24dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/name"
-        />
+        <TextView
+            android:id="@+id/Title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="24dp"
+            android:layout_marginHorizontal="24dp"
+            android:text="@string/register_title"
+            android:textColor="@color/grey"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <com.qds.MainEditText
-        android:id="@+id/wpp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:hint="@string/register_whatsapp_hint"
-        app:startIcon="@drawable/ic_wpp"
-        app:label="@string/register_whatsapp_label"
-        android:layout_marginHorizontal="24dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/email"
-        />
+        <TextView
+            android:id="@+id/subTitle"
+            android:layout_width="0dp"
+            android:layout_height="19dp"
+            android:layout_marginHorizontal="24dp"
+            android:text="@string/register_subTitle"
+            android:textColor="@color/light_grey"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/Title" />
 
-    <com.qds.MainEditText
-        android:id="@+id/apNumber"
-        android:layout_width="164dp"
-        android:layout_height="wrap_content"
-        app:hint="@string/register_apNumber_hint"
-        app:label="@string/register_apNumber_label"
-        android:layout_marginTop="28dp"
-        android:layout_marginHorizontal="20dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/wpp"
-        />
+        <com.qds.MainEditText
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="28dp"
+            android:layout_marginBottom="8dp"
+            app:hint="@string/register_name_hint"
+            app:label="@string/register_name_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/subTitle"
+            app:startIcon="@drawable/ic_name" />
 
-    <com.qds.MainEditText
-        android:id="@+id/block"
-        android:layout_width="164dp"
-        android:layout_height="wrap_content"
-        app:hint="@string/register_block_hint"
-        app:label="@string/register_block_label"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/apNumber"
-        app:layout_constraintTop_toTopOf="@+id/apNumber" />
+        <com.qds.MainEditText
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="20dp"
+            app:hint="@string/register_email_hint"
+            app:label="@string/register_email_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/name"
+            app:startIcon="@drawable/ic_email" />
+
+        <com.qds.MainEditText
+            android:id="@+id/wpp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="20dp"
+            app:hint="@string/register_whatsapp_hint"
+            app:label="@string/register_whatsapp_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/email"
+            app:startIcon="@drawable/ic_wpp" />
+
+        <com.qds.MainEditText
+            android:id="@+id/apNumber"
+            android:layout_width="164dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="28dp"
+            app:hint="@string/register_apNumber_hint"
+            app:label="@string/register_apNumber_label"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/wpp" />
+
+        <com.qds.MainEditText
+            android:id="@+id/block"
+            android:layout_width="164dp"
+            android:layout_height="wrap_content"
+            app:hint="@string/register_block_hint"
+            app:label="@string/register_block_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/apNumber"
+            app:layout_constraintTop_toTopOf="@+id/apNumber" />
+
+        <com.qds.MainButton
+            android:id="@+id/advanceButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="28dp"
+            android:text="Avançar"
+            app:corner="60dp"
+            app:enabledColor="@color/wine"
+            app:enabledTextColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/apNumber"
+            android:textAllCaps="false"
+            android:textSize="18sp"
+            />
+
+        <com.qds.MainButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="16dp"
+            android:text="Já tenho minha conta"
+            android:textAllCaps="false"
+            android:textSize="18sp"
+            app:buttonStrokeColor="@color/grey"
+            app:buttonStrokeWidth="1dp"
+            app:corner="60dp"
+            app:enabledColor="@color/white"
+            app:enabledTextColor="@color/grey"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/advanceButton"
+            android:layout_marginBottom="24dp"
+            />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
