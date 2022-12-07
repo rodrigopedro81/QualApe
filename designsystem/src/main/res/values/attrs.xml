@@ -12,6 +12,5 @@
         <attr name="disabledTextColor" format="color"/>
         <attr name="button_text" format="string"/>
         <attr name="corner" format="integer"/>
-        <attr name="fontFamily" format="reference"/>
     </declare-styleable>
 </resources>
