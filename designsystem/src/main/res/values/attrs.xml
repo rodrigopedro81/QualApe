@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <declare-styleable name="CustomEditText">
+        <attr name="custom_edittext" format="string"/>
+    </declare-styleable>
     <declare-styleable name="MainButton">
         <attr name="enabledColor" format="color"/>
         <attr name="enabledTextColor" format="color"/>
