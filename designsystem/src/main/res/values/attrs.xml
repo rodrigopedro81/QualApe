@@ -3,4 +3,13 @@
     <declare-styleable name="CustomEditText">
         <attr name="custom_edittext" format="string"/>
     </declare-styleable>
+    <declare-styleable name="MainButton">
+        <attr name="enabledColor" format="color"/>
+        <attr name="enabledTextColor" format="color"/>
+        <attr name="disabledColor" format="color"/>
+        <attr name="disabledTextColor" format="color"/>
+        <attr name="button_text" format="string"/>
+        <attr name="corner" format="integer"/>
+        <attr name="fontFamily" format="reference"/>
+    </declare-styleable>
 </resources>
