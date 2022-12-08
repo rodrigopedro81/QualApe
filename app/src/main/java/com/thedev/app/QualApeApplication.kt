@@ -1,26 +1,25 @@
 package com.thedev.app
 
 import android.app.Application
+import com.login.LoginJourneyViewModel
 import org.koin.android.ext.koin.androidContext
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
+import org.koin.dsl.module
 
-class ChallengeApplication : Application() {
+class QualApeApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        startKoin{
-            androidContext(this@ChallengeApplication)
-//            modules(viewModelsModule)
-//            modules(interactorsModule)
-//            modules(repositoriesModule)
+        startKoin {
+            androidContext(this@QualApeApplication)
+            modules(loginModule)
         }
     }
 
-//    private val viewModelsModule = module {
-//        viewModel { RandomActivityViewModel(get()) }
-//        viewModel { HomeViewModel(get()) }
-//        viewModel { MyActivitiesViewModel(get()) }
-//    }
+    private val loginModule = module {
+        viewModel { LoginJourneyViewModel() }
+    }
 //
 //    private val interactorsModule = module {
 //        factory { RandomActivityInteractor(get()) }

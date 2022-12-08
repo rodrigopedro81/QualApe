@@ -42,8 +42,8 @@ class MainButton(
             disabledTextColor = attributes.getColor(R.styleable.MainButton_disabledTextColor, 0)
             buttonText = attributes.getString(R.styleable.MainButton_android_text) ?: ""
             corner = attributes.getDimension(R.styleable.MainButton_corner, 0F)
-            strokeWidth = attributes.getDimension(R.styleable.MainButton_buttonStrokeWidth, 0F)
-            strokeColor = attributes.getColor(R.styleable.MainButton_buttonStrokeColor, 0)
+            strokeWidth = attributes.getDimension(R.styleable.MainButton_strokeWidth, 0F)
+            strokeColor = attributes.getColor(R.styleable.MainButton_strokeColor, 0)
             isButtonEnabled = true
             attributes.recycle()
         }

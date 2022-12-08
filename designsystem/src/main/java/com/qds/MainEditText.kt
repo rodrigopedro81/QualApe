@@ -1,19 +1,32 @@
 package com.qds
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
+import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import com.qds.databinding.CustomMainEditTextBinding
 
 class MainEditText @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet?,
     defStyleAttr: Int = 0
-) : ConstraintLayout(context, attrs, defStyleAttr){
+) : ConstraintLayout(context, attrs, defStyleAttr) {
 
-    private var text: String? = null
+    val text get() = binding.field.text.toString()
+    val editText get() = binding.field
+    private var errorColor: Int = 0
+    private var corner: Float = 0F
+    private var strokeWidth: Float = 0F
+    private var mainColor: Int = 0
+    private var fieldIsValid = true
+        set(value) {
+            field = value
+            setupViewByState()
+        }
 
     private val binding = CustomMainEditTextBinding
         .inflate(LayoutInflater.from(context), this, true)
@@ -22,7 +35,7 @@ class MainEditText @JvmOverloads constructor(
         setLayout(attrs)
     }
 
-    private fun setLayout(attrs: AttributeSet?){
+    private fun setLayout(attrs: AttributeSet?) {
         attrs?.let { attributeSet ->
             val attributes = context.obtainStyledAttributes(
                 attributeSet,
@@ -34,7 +47,11 @@ class MainEditText @JvmOverloads constructor(
             setLabel(label)
             val hint = attributes.getString(R.styleable.MainEditText_hint)
             setHint(hint)
-
+            errorColor = attributes.getColor(R.styleable.MainEditText_errorColor, 0)
+            corner = attributes.getDimension(R.styleable.MainEditText_corner, 0F)
+            strokeWidth = attributes.getDimension(R.styleable.MainEditText_strokeWidth, 0F)
+            mainColor = attributes.getColor(R.styleable.MainEditText_mainColor, 0)
+            changeBackground(mainColor)
             attributes.recycle()
 
         }
@@ -52,4 +69,26 @@ class MainEditText @JvmOverloads constructor(
         binding.field.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null)
     }
 
+    private fun setupViewByState() {
+        if (fieldIsValid.not()) {
+            binding.field.setTextColor(errorColor)
+            binding.field.compoundDrawables[0].setTint(errorColor)
+            binding.field.background
+        }
+    }
+
+    private fun changeBackground(newColor: Int) {
+        val newBackground = GradientDrawable().apply {
+            shape = GradientDrawable.RECTANGLE
+            cornerRadius = corner
+            color = ColorStateList.valueOf(ContextCompat.getColor(context, R.color.white))
+            setStroke(strokeWidth.toInt(), newColor)
+        }
+        if (binding.field.compoundDrawables[0] != null) {
+            binding.field.compoundDrawables[0].setTint(newColor)
+        }
+        binding.field.setHintTextColor(newColor)
+        binding.textViewTitle.setTextColor(newColor)
+        binding.field.background = newBackground
+    }
 }
