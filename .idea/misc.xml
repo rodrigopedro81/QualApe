@@ -18,6 +18,8 @@
         <entry key="designsystem/src/main/res/layout/main_activity.xml" value="0.5" />
         <entry key="login/src/main/res/drawable/ic_android_black_24dp.xml" value="0.27" />
         <entry key="login/src/main/res/layout/fragment_login.xml" value="0.5" />
+        <entry key="login/src/main/res/layout/fragment_password.xml" value="0.33" />
+        <entry key="login/src/main/res/layout/fragment_register.xml" value="0.35625" />
       </map>
     </option>
   </component>
