@@ -13,5 +13,9 @@
     <string name="register_block_label">Bloco</string>
     <string name="register_name_hint">Como você se chama?</string>
     <string name="register_name_label">Nome</string>
+    <string name="você_já_de_casa">Você já é de casa</string>
+    <string name="fique_vontade">Fique à vontade</string>
+    <string name="entrar">Entrar</string>
     <string name="register_text_button">Avançar</string>
+    <string name="criar_minha_conta">Criar minha conta</string>
 </resources>
