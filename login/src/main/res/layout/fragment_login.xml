@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/TitleLogin"
+        android:id="@+id/textViewHeader"
         style="@style/Header"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -18,19 +18,19 @@
         />
 
     <TextView
-        android:id="@+id/subtitleLogin"
+        android:id="@+id/textViewSubtitle"
         android:layout_width="0dp"
         android:layout_height="19dp"
         android:text="@string/fique_vontade"
         android:textSize="16sp"
         android:textColor="@color/light_grey"
-        app:layout_constraintTop_toBottomOf="@id/TitleLogin"
-        app:layout_constraintStart_toStartOf="@id/TitleLogin"
-        app:layout_constraintEnd_toEndOf="@id/TitleLogin"
+        app:layout_constraintTop_toBottomOf="@id/textViewHeader"
+        app:layout_constraintStart_toStartOf="@id/textViewHeader"
+        app:layout_constraintEnd_toEndOf="@id/textViewHeader"
         />
 
     <com.qds.MainEditText
-        android:id="@+id/emailLogin"
+        android:id="@+id/mainEditTextEmail"
         style="@style/MainEditTextPrimary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -41,18 +41,18 @@
         android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/subtitleLogin"
+        app:layout_constraintTop_toBottomOf="@+id/textViewSubtitle"
         />
 
     <com.qds.MainEditText
-        android:id="@+id/passwordLogin"
+        android:id="@+id/mainEditTextPassword"
         style="@style/MainEditTextPrimary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:label="Senha"
         app:hint="Digite sua senha"
         app:startIcon="@drawable/ic_password"
-        app:layout_constraintTop_toBottomOf="@id/emailLogin"
+        app:layout_constraintTop_toBottomOf="@id/mainEditTextEmail"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginHorizontal="24dp"
@@ -60,26 +60,26 @@
         />
 
     <com.qds.MainButton
-        android:id="@+id/buttonEntrar"
+        android:id="@+id/buttonLogin"
         style="@style/MainButtonPrimary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:layout_marginHorizontal="24dp"
         android:text="@string/entrar"
-        app:layout_constraintTop_toBottomOf="@id/passwordLogin"
+        app:layout_constraintTop_toBottomOf="@id/mainEditTextPassword"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <com.qds.MainButton
-        android:id="@+id/buttonCriarConta"
+        android:id="@+id/buttonCreateAccount"
         style="@style/MainButtonSecondary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginHorizontal="24dp"
         android:text="@string/criar_minha_conta"
-        app:layout_constraintTop_toBottomOf="@id/buttonEntrar"
+        app:layout_constraintTop_toBottomOf="@id/buttonLogin"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 

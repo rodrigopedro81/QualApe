@@ -1,4 +1,4 @@
-package com.thedev.app.extensions
+package com.qds
 
 import android.view.View
 
@@ -155,6 +155,18 @@ fun View.setOnClickListenerWithAnimation(duration: Long, function: () -> Unit) {
                 function()
             }
         }
+    }
+}
+
+fun View.animateFocus(duration: Long){
+    this.setOnFocusChangeListener { view, isFocused ->
+        if (isFocused) view.flick(duration)
+    }
+}
+
+fun View.flick(duration: Long){
+    this.animate().setDuration(duration / 2).scaleX(0.95f).scaleY(0.95f).withEndAction {
+        this.animate().setDuration(duration / 2).scaleX(1.0f).scaleY(1.0f)
     }
 }
 

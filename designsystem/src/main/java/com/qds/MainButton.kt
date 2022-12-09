@@ -19,15 +19,15 @@ class MainButton(
     private var strokeWidth: Float = 0F
     private var strokeColor: Int = 0
     private var buttonText: String = ""
-    private var isButtonEnabled = true
-        set(value) {
-            field = value
-            setButtonByState()
-        }
 
-    fun enableButton() { isButtonEnabled = true }
-    fun disableButton() { isButtonEnabled = false }
-    fun changeState() { isButtonEnabled = !isButtonEnabled }
+    override fun setEnabled(enabled: Boolean) {
+        super.setEnabled(enabled)
+        setButtonByState()
+    }
+
+    fun enableButton() { isEnabled = true }
+    fun disableButton() { isEnabled = false }
+    fun changeState() { isEnabled = !isEnabled }
 
     init {
         setLayout(attrs)
@@ -44,13 +44,13 @@ class MainButton(
             corner = attributes.getDimension(R.styleable.MainButton_corner, 0F)
             strokeWidth = attributes.getDimension(R.styleable.MainButton_strokeWidth, 0F)
             strokeColor = attributes.getColor(R.styleable.MainButton_strokeColor, 0)
-            isButtonEnabled = true
+            setButtonByState()
             attributes.recycle()
         }
     }
 
     private fun setButtonByState() {
-        if (isButtonEnabled) {
+        if (isEnabled) {
             changeBackground(enabledColor)
             setTextColor(enabledTextColor)
         } else {

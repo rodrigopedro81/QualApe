@@ -1,4 +1,4 @@
-package com.thedev.app.extensions
+package com.qds
 
 import android.util.Patterns
 import android.widget.EditText

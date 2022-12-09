@@ -72,8 +72,9 @@ class MainEditText @JvmOverloads constructor(
     private fun setupViewByState() {
         if (fieldIsValid.not()) {
             binding.field.setTextColor(errorColor)
-            binding.field.compoundDrawables[0].setTint(errorColor)
-            binding.field.background
+            if (binding.field.compoundDrawables[0] != null) {
+                binding.field.compoundDrawables[0].setTint(errorColor)
+            }
         }
     }
 
