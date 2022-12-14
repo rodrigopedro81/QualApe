@@ -51,6 +51,7 @@
         android:layout_height="wrap_content"
         app:label="Senha"
         app:hint="Digite sua senha"
+        android:inputType="textPassword"
         app:startIcon="@drawable/ic_password"
         app:layout_constraintTop_toBottomOf="@id/mainEditTextEmail"
         app:layout_constraintStart_toStartOf="parent"

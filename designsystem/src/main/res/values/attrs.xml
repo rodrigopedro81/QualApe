@@ -11,6 +11,7 @@
         <attr name="strokeWidth"/>
         <attr name="corner"/>
         <attr name="mainColor" format="color"/>
+        <attr name="android:inputType"/>
     </declare-styleable>
     <declare-styleable name="MainButton">
         <attr name="enabledColor" format="color"/>

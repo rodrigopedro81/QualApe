@@ -40,6 +40,7 @@
         <item name="mainColor">@color/grey</item>
         <item name="strokeWidth">1dp</item>
         <item name="corner">30dp</item>
+        <item name="errorColor">@color/light_red</item>
     </style>
 
     <style name="Header">

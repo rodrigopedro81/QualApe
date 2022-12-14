@@ -4,31 +4,30 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.domain.commons.Constants.AnimationDurations.BUTTON_DURATION
+import com.domain.commons.Constants.AnimationDurations.FADE_DURATION
+import com.domain.commons.Verifier.verifyApartment
+import com.domain.commons.Verifier.verifyBlock
+import com.domain.commons.Verifier.verifyEmail
+import com.domain.commons.Verifier.verifyName
+import com.domain.commons.Verifier.verifyWpp
 import com.domain.model.User
-import com.login.LoginJourneySharedViewModel
+import com.login.LoginState
+import com.login.LoginViewModel
 import com.login.R
 import com.login.databinding.FragmentRegisterBinding
-import com.qds.feathersAnimation
+import com.qds.MainEditText
+import com.qds.fadeIn
 import com.qds.setOnClickListenerWithAnimation
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class RegisterFragment : Fragment() {
 
-    private val viewModel: LoginJourneySharedViewModel by sharedViewModel()
+    private val viewModel: LoginViewModel by sharedViewModel()
     private lateinit var binding: FragmentRegisterBinding
-    private val name get() = binding.name.editText
-    private val email get() = binding.email.editText
-    private val wpp get() = binding.wpp.editText
-    private val block get() = binding.block.editText
-    private val apartment get() = binding.apNumber.editText
-    private var nameValid = false
-    private var emailValid = false
-    private var wppValid = false
-    private var blockValid = false
-    private var apartmentValid = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,29 +35,82 @@ class RegisterFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentRegisterBinding.inflate(inflater)
-        binding.root.feathersAnimation(1500L)
-        binding.advanceButton.disableButton()
+        viewModel.setFieldsAsInvalid()
+        setupObserver()
         setupFieldListeners()
-        setupButtons()
+        with(binding) {
+            advanceButton.setOnClickListenerWithAnimation(BUTTON_DURATION) {
+                if (viewModel.loginState.value is LoginState.FieldsAreValid) {
+                    val user = User(
+                        name = name.text,
+                        email = email.text,
+                        wpp = wpp.text,
+                        block = block.text,
+                        apartment = apNumber.text
+                    )
+                    viewModel.saveUserInfo(user)
+                    navigateToCreatePasswordFragment()
+                }
+            }
+            buttonGoLogin.setOnClickListenerWithAnimation(BUTTON_DURATION) {
+                findNavController().navigate(R.id.registerFragmentToLoginFragment)
+            }
+        }
         return binding.root
     }
 
-    private fun allFieldsAreValid() =
-        nameValid && emailValid && wppValid && blockValid && apartmentValid
+    private fun setupFieldListeners() {
+        with(binding) {
+            name.setValidationScript(
+                validationRule = {
+                    verifyName(it)
+                },
+                doAfter = { checkFields() }
+            )
+            email.setValidationScript(
+                validationRule = {
+                    verifyEmail(it)
+                },
+                doAfter = { checkFields() }
+            )
+            apNumber.setValidationScript(
+                validationRule = {
+                    verifyApartment(it)
+                },
+                doAfter = { checkFields() }
+            )
+            block.setValidationScript(
+                validationRule = {
+                    verifyBlock(it)
+                },
+                doAfter = { checkFields() }
+            )
+            wpp.setValidationScript(
+                validationRule = {
+                    verifyWpp(it)
+                },
+                doAfter = { checkFields() }
+            )
+        }
+    }
 
-    private fun setupButtons() {
-        binding.advanceButton.setOnClickListenerWithAnimation(300L) {
-            if (allFieldsAreValid()) {
-                val user =
-                    User(
-                        name.text.toString(),
-                        email.text.toString(),
-                        wpp.text.toString(),
-                        block.text.toString(),
-                        apartment.text.toString()
-                    )
-                viewModel.saveUserInfo(user)
-                navigateToCreatePasswordFragment()
+    private fun checkFields() {
+        if (allFieldsAreValid()) {
+            viewModel.setFieldsAsValid()
+        } else {
+            viewModel.setFieldsAsInvalid()
+        }
+    }
+
+    private fun allFieldsAreValid(): Boolean = with(binding) {
+        listOf(name, apNumber, wpp, block, email).all { it.fieldIsValid }
+    }
+
+    private fun setupObserver() {
+        viewModel.loginState.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                LoginState.FieldsAreInvalid -> binding.advanceButton.disableButton()
+                LoginState.FieldsAreValid -> binding.advanceButton.enableButton()
             }
         }
     }
@@ -66,37 +118,4 @@ class RegisterFragment : Fragment() {
     private fun navigateToCreatePasswordFragment() {
         findNavController().navigate(R.id.registerFragmentToCreatePasswordFragment)
     }
-
-    private fun setupFieldListeners() {
-        name.doAfterTextChanged {
-            nameValid = verifyName(it.toString())
-        }
-        email.doAfterTextChanged {
-            emailValid = verifyEmail(it.toString())
-        }
-        wpp.doAfterTextChanged {
-            wppValid = verifyWpp(it.toString())
-        }
-        block.doAfterTextChanged {
-            blockValid = verifyBlock(it.toString())
-        }
-        apartment.doAfterTextChanged {
-            apartmentValid = verifyApartment(it.toString())
-        }
-    }
-
-    private fun verifyWpp(wpp: String): Boolean =
-        android.util.Patterns.PHONE.matcher(wpp).matches()
-
-    private fun verifyApartment(apartment: String): Boolean =
-        (apartment.toInt() in 100..516)
-
-    private fun verifyBlock(block: String): Boolean =
-        (block.toInt() in 1..9)
-
-    private fun verifyEmail(email: String): Boolean =
-        android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
-
-    private fun verifyName(name: String): Boolean =
-        name.length > 6
 }

@@ -8,6 +8,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.widget.doAfterTextChanged
 import com.qds.databinding.CustomMainEditTextBinding
 
 class MainEditText @JvmOverloads constructor(
@@ -22,11 +23,12 @@ class MainEditText @JvmOverloads constructor(
     private var corner: Float = 0F
     private var strokeWidth: Float = 0F
     private var mainColor: Int = 0
-    private var fieldIsValid = true
+    private var _fieldIsValid = false
         set(value) {
             field = value
             setupViewByState()
         }
+    val fieldIsValid get() = _fieldIsValid
 
     private val binding = CustomMainEditTextBinding
         .inflate(LayoutInflater.from(context), this, true)
@@ -51,9 +53,34 @@ class MainEditText @JvmOverloads constructor(
             corner = attributes.getDimension(R.styleable.MainEditText_corner, 0F)
             strokeWidth = attributes.getDimension(R.styleable.MainEditText_strokeWidth, 0F)
             mainColor = attributes.getColor(R.styleable.MainEditText_mainColor, 0)
+//            setAsPassword(attributes.getInteger(R.styleable.MainEditText_android_inputType, 0))
             changeBackground(mainColor)
+            editText.animateFocus(150L)
             attributes.recycle()
+        }
+    }
 
+//    private fun setAsPassword(type: Int) {
+//        if (type == PASSWORD_FLAG) {
+//            editText.transformationMethod = PasswordTransformationMethod.getInstance()
+//
+//        }
+//    }
+
+    fun setValidationScript(validationRule: (String) -> Boolean, doAfter: () -> Unit = {}) {
+        editText.doAfterTextChanged {
+            _fieldIsValid = validationRule.invoke(it.toString())
+            doAfter.invoke()
+        }
+    }
+
+    fun setValidationScript(validationRule: (String) -> Boolean) {
+        editText.doAfterTextChanged {
+            _fieldIsValid = if (it.isNullOrBlank()) {
+                validationRule.invoke("")
+            } else {
+                validationRule.invoke(it.toString())
+            }
         }
     }
 
@@ -70,12 +97,9 @@ class MainEditText @JvmOverloads constructor(
     }
 
     private fun setupViewByState() {
-        if (fieldIsValid.not()) {
-            binding.field.setTextColor(errorColor)
-            if (binding.field.compoundDrawables[0] != null) {
-                binding.field.compoundDrawables[0].setTint(errorColor)
-            }
-        }
+        changeBackground(
+            newColor = if (_fieldIsValid) mainColor else errorColor
+        )
     }
 
     private fun changeBackground(newColor: Int) {
@@ -91,5 +115,9 @@ class MainEditText @JvmOverloads constructor(
         binding.field.setHintTextColor(newColor)
         binding.textViewTitle.setTextColor(newColor)
         binding.field.background = newBackground
+    }
+
+    companion object {
+        private const val PASSWORD_FLAG = 0x00000081
     }
 }
