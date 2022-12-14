@@ -12,7 +12,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/Title"
+            android:id="@+id/textViewTitle"
             style="@style/Header"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -25,7 +25,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/subTitle"
+            android:id="@+id/textViewSubTitle"
             android:layout_width="0dp"
             android:layout_height="19dp"
             android:layout_marginHorizontal="24dp"
@@ -34,10 +34,10 @@
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/Title" />
+            app:layout_constraintTop_toBottomOf="@id/textViewTitle" />
 
         <com.qds.MainEditText
-            android:id="@+id/name"
+            android:id="@+id/mainEditTextName"
             style="@style/MainEditTextPrimary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -47,12 +47,12 @@
             app:label="@string/register_name_label"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/subTitle"
+            app:layout_constraintTop_toBottomOf="@id/textViewSubTitle"
             app:startIcon="@drawable/ic_name"
             />
 
         <com.qds.MainEditText
-            android:id="@+id/email"
+            android:id="@+id/mainEditTextEmail"
             style="@style/MainEditTextPrimary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -62,11 +62,11 @@
             app:label="@string/register_email_label"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/name"
+            app:layout_constraintTop_toBottomOf="@id/mainEditTextName"
             app:startIcon="@drawable/ic_email" />
 
         <com.qds.MainEditText
-            android:id="@+id/wpp"
+            android:id="@+id/mainEditTextWhatsapp"
             style="@style/MainEditTextPrimary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -76,11 +76,11 @@
             app:label="@string/register_whatsapp_label"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/email"
+            app:layout_constraintTop_toBottomOf="@id/mainEditTextEmail"
             app:startIcon="@drawable/ic_wpp" />
 
         <com.qds.MainEditText
-            android:id="@+id/apNumber"
+            android:id="@+id/mainEditTextApartmentNumber"
             style="@style/MainEditTextPrimary"
             android:layout_width="164dp"
             android:layout_height="wrap_content"
@@ -89,21 +89,21 @@
             app:hint="@string/register_apNumber_hint"
             app:label="@string/register_apNumber_label"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/wpp" />
+            app:layout_constraintTop_toBottomOf="@id/mainEditTextWhatsapp" />
 
         <com.qds.MainEditText
-            android:id="@+id/block"
+            android:id="@+id/mainEditTextBlock"
             style="@style/MainEditTextPrimary"
             android:layout_width="164dp"
             android:layout_height="wrap_content"
             app:hint="@string/register_block_hint"
             app:label="@string/register_block_label"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/apNumber"
-            app:layout_constraintTop_toTopOf="@+id/apNumber" />
+            app:layout_constraintStart_toEndOf="@id/mainEditTextApartmentNumber"
+            app:layout_constraintTop_toTopOf="@+id/mainEditTextApartmentNumber" />
 
         <com.qds.MainButton
-            android:id="@+id/advanceButton"
+            android:id="@+id/mainButtonAdvance"
             style="@style/MainButtonPrimary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -112,11 +112,11 @@
             android:text="Avançar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/apNumber"
+            app:layout_constraintTop_toBottomOf="@id/mainEditTextApartmentNumber"
             />
 
         <com.qds.MainButton
-            android:id="@+id/buttonGoLogin"
+            android:id="@+id/mainButtonGoLogin"
             style="@style/MainButtonSecondary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -127,7 +127,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/advanceButton"
+            app:layout_constraintTop_toBottomOf="@id/mainButtonAdvance"
             />
 
 

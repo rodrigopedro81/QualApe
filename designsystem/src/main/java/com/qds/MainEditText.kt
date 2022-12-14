@@ -17,8 +17,8 @@ class MainEditText @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
 
-    val text get() = binding.field.text.toString()
-    val editText get() = binding.field
+    val text get() = binding.customMainEditText.text.toString()
+    val editText get() = binding.customMainEditText
     private var errorColor: Int = 0
     private var corner: Float = 0F
     private var strokeWidth: Float = 0F
@@ -85,15 +85,15 @@ class MainEditText @JvmOverloads constructor(
     }
 
     private fun setHint(hint: String?) {
-        binding.field.hint = hint
+        binding.customMainEditText.hint = hint
     }
 
     private fun setLabel(label: String?) {
-        binding.textViewTitle.text = label
+        binding.textViewLabel.text = label
     }
 
     private fun setIcon(icon: Drawable?) {
-        binding.field.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null)
+        binding.textViewLabel.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null)
     }
 
     private fun setupViewByState() {
@@ -109,12 +109,12 @@ class MainEditText @JvmOverloads constructor(
             color = ColorStateList.valueOf(ContextCompat.getColor(context, R.color.white))
             setStroke(strokeWidth.toInt(), newColor)
         }
-        if (binding.field.compoundDrawables[0] != null) {
-            binding.field.compoundDrawables[0].setTint(newColor)
+        if (binding.textViewLabel.compoundDrawables[0] != null) {
+            binding.textViewLabel.compoundDrawables[0].setTint(newColor)
         }
-        binding.field.setHintTextColor(newColor)
-        binding.textViewTitle.setTextColor(newColor)
-        binding.field.background = newBackground
+        binding.textViewLabel.setHintTextColor(newColor)
+        binding.textViewLabel.setTextColor(newColor)
+        binding.textViewLabel.background = newBackground
     }
 
     companion object {
