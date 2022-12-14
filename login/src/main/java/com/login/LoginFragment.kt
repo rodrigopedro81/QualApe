@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.FieldsState
 import com.authentication.Authentication
 import com.domain.commons.Constants.AnimationDurations.BUTTON_DURATION
 import com.domain.commons.Constants.AnimationDurations.FADE_DURATION
@@ -38,7 +39,7 @@ class LoginFragment : Fragment() {
                 }
             }
             buttonLogin.setOnClickListenerWithAnimation(BUTTON_DURATION) {
-                if (viewModel.loginState.value is LoginState.FieldsAreValid) {
+                if (viewModel.fieldsState.value is FieldsState.FieldsAreValid) {
                     Authentication.login(
                         email = mainEditTextEmail.text,
                         password = mainEditTextPassword.text,
@@ -71,10 +72,10 @@ class LoginFragment : Fragment() {
     }
 
     private fun setupObserver() {
-        viewModel.loginState.observe(viewLifecycleOwner) { state ->
+        viewModel.fieldsState.observe(viewLifecycleOwner) { state ->
             when (state) {
-                LoginState.FieldsAreInvalid -> binding.buttonLogin.disableButton()
-                LoginState.FieldsAreValid -> binding.buttonLogin.enableButton()
+                FieldsState.FieldsAreInvalid -> binding.buttonLogin.disableButton()
+                FieldsState.FieldsAreValid -> binding.buttonLogin.enableButton()
             }
         }
     }

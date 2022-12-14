@@ -13,7 +13,7 @@ import com.domain.commons.Verifier.verifyEmail
 import com.domain.commons.Verifier.verifyName
 import com.domain.commons.Verifier.verifyWpp
 import com.domain.model.User
-import com.login.LoginState
+import com.login.FieldsState
 import com.login.LoginViewModel
 import com.login.R
 import com.login.databinding.FragmentRegisterBinding
@@ -37,7 +37,7 @@ class RegisterFragment : Fragment() {
         setupFieldListeners()
         with(binding) {
             advanceButton.setOnClickListenerWithAnimation(BUTTON_DURATION) {
-                if (viewModel.loginState.value is LoginState.FieldsAreValid) {
+                if (viewModel.fieldsState.value is FieldsState.FieldsAreValid) {
                     val user = User(
                         name = name.text,
                         email = email.text,
@@ -104,10 +104,10 @@ class RegisterFragment : Fragment() {
     }
 
     private fun setupObserver() {
-        viewModel.loginState.observe(viewLifecycleOwner) { state ->
+        viewModel.fieldsState.observe(viewLifecycleOwner) { state ->
             when (state) {
-                LoginState.FieldsAreInvalid -> binding.advanceButton.disableButton()
-                LoginState.FieldsAreValid -> binding.advanceButton.enableButton()
+                FieldsState.FieldsAreInvalid -> binding.advanceButton.disableButton()
+                FieldsState.FieldsAreValid -> binding.advanceButton.enableButton()
             }
         }
     }

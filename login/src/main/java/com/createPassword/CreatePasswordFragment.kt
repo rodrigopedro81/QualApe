@@ -11,14 +11,13 @@ import com.authentication.Authentication
 import com.domain.commons.Constants.AnimationDurations.BUTTON_DURATION
 import com.domain.commons.Constants.AnimationDurations.FEATHERS_DURATION
 import com.domain.commons.Verifier.verifyPassword
-import com.login.LoginState
+import com.login.FieldsState
 import com.login.LoginViewModel
 import com.login.R
 import com.login.databinding.FragmentCreatePasswordBinding
 import com.qds.feathersAnimation
 import com.qds.setOnClickListenerWithAnimation
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CreatePasswordFragment : Fragment() {
 
@@ -42,7 +41,7 @@ class CreatePasswordFragment : Fragment() {
                 activity?.onBackPressed()
             }
             buttonCreateAccount.setOnClickListenerWithAnimation(BUTTON_DURATION) {
-                if (viewModel.loginState.value is LoginState.FieldsAreValid) {
+                if (viewModel.fieldsState.value is FieldsState.FieldsAreValid) {
                     with(viewModel.user) {
                         Authentication.register(
                             email,
@@ -64,10 +63,10 @@ class CreatePasswordFragment : Fragment() {
     }
 
     private fun setupObserver() {
-        viewModel.loginState.observe(viewLifecycleOwner) { state ->
+        viewModel.fieldsState.observe(viewLifecycleOwner) { state ->
             when (state){
-                LoginState.FieldsAreInvalid -> binding.buttonCreateAccount.disableButton()
-                LoginState.FieldsAreValid -> binding.buttonCreateAccount.enableButton()
+                FieldsState.FieldsAreInvalid -> binding.buttonCreateAccount.disableButton()
+                FieldsState.FieldsAreValid -> binding.buttonCreateAccount.enableButton()
             }
         }
     }
