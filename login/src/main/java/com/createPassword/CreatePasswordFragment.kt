@@ -13,6 +13,8 @@ import com.domain.commons.Constants.AnimationDurations.BUTTON_DURATION
 import com.domain.commons.Constants.AnimationDurations.FEATHERS_DURATION
 import com.domain.commons.Verifier.verifyPassword
 import com.LoginViewModel
+import com.database.Database
+import com.domain.model.User
 import com.login.R
 import com.login.databinding.FragmentCreatePasswordBinding
 import com.qds.feathersAnimation
@@ -48,9 +50,9 @@ class CreatePasswordFragment : Fragment() {
                             passwordField.text
                         ) { isSuccessful, errorMessage ->
                             if (isSuccessful) {
-                                handleSuccess()
+                                handleSuccess(this)
                             } else {
-                                showError(errorMessage)
+                                handleError(errorMessage)
                             }
                         }
                     }
@@ -71,13 +73,16 @@ class CreatePasswordFragment : Fragment() {
         }
     }
 
-    private fun showError(errorMessage: String) {
+    private fun handleError(errorMessage: String) {
         // TODO () -> Mostrar Toast de erro com o por quê
         Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
     }
 
-    private fun handleSuccess() {
-        findNavController().navigate(R.id.action_createPasswordFragment_to_loginFragment)
+    private fun handleSuccess(user: User) {
+        Database.saveUserData(user) {
+//            findNavController().navigate(R.id.action_createPasswordFragment_to_loginFragment)
+            Toast.makeText(context, "Tentou salvar no banco de dados!", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun setupFieldListeners() {
