@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.domain.commons.Constants.AnimationDurations.BUTTON_DURATION
-import com.domain.commons.Constants.AnimationDurations.FADE_DURATION
 import com.domain.commons.Verifier.verifyApartment
 import com.domain.commons.Verifier.verifyBlock
 import com.domain.commons.Verifier.verifyEmail
@@ -18,23 +17,21 @@ import com.login.LoginState
 import com.login.LoginViewModel
 import com.login.R
 import com.login.databinding.FragmentRegisterBinding
-import com.qds.MainEditText
-import com.qds.fadeIn
 import com.qds.setOnClickListenerWithAnimation
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class RegisterFragment : Fragment() {
 
     private val viewModel: LoginViewModel by sharedViewModel()
-    private lateinit var binding: FragmentRegisterBinding
+    private var _binding: FragmentRegisterBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentRegisterBinding.inflate(inflater)
+        _binding = FragmentRegisterBinding.inflate(inflater)
         viewModel.setFieldsAsInvalid()
         setupObserver()
         setupFieldListeners()
@@ -117,5 +114,10 @@ class RegisterFragment : Fragment() {
 
     private fun navigateToCreatePasswordFragment() {
         findNavController().navigate(R.id.registerFragmentToCreatePasswordFragment)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

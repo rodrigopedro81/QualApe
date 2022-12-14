@@ -22,7 +22,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CreatePasswordFragment : Fragment() {
 
-    private lateinit var binding: FragmentCreatePasswordBinding
+    private var _binding: FragmentCreatePasswordBinding? = null
+    private val binding get() = _binding!!
     private val passwordField get() = binding.editTextPassword
     private val confirmPasswordField get() = binding.editTextConfirmPassword
     private val viewModel: LoginViewModel by sharedViewModel()
@@ -32,7 +33,7 @@ class CreatePasswordFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentCreatePasswordBinding.inflate(inflater)
+        _binding = FragmentCreatePasswordBinding.inflate(inflater)
         viewModel.setFieldsAsInvalid()
         setupObserver()
         with(binding) {
@@ -103,5 +104,10 @@ class CreatePasswordFragment : Fragment() {
         } else {
             viewModel.setFieldsAsInvalid()
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

@@ -20,14 +20,15 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class LoginFragment : Fragment() {
 
     private val viewModel: LoginViewModel by viewModel()
-    private lateinit var binding: FragmentLoginBinding
+    private var _binding: FragmentLoginBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentLoginBinding.inflate(inflater)
+        _binding = FragmentLoginBinding.inflate(inflater)
         setupObserver()
         with(binding) {
             root.feathersAnimation(FEATHERS_DURATION)
@@ -96,5 +97,10 @@ class LoginFragment : Fragment() {
         return with(binding) {
             mainEditTextEmail.fieldIsValid && mainEditTextPassword.fieldIsValid
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
