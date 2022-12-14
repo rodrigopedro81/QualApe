@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.FieldsState
 import com.domain.commons.Constants.AnimationDurations.BUTTON_DURATION
 import com.domain.commons.Verifier.verifyApartment
 import com.domain.commons.Verifier.verifyBlock
@@ -13,8 +14,7 @@ import com.domain.commons.Verifier.verifyEmail
 import com.domain.commons.Verifier.verifyName
 import com.domain.commons.Verifier.verifyWpp
 import com.domain.model.User
-import com.login.FieldsState
-import com.login.LoginViewModel
+import com.LoginViewModel
 import com.login.R
 import com.login.databinding.FragmentRegisterBinding
 import com.qds.setOnClickListenerWithAnimation
@@ -32,8 +32,8 @@ class RegisterFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentRegisterBinding.inflate(inflater)
-        viewModel.setFieldsAsInvalid()
         setupObserver()
+        checkFields()
         setupFieldListeners()
         with(binding) {
             advanceButton.setOnClickListenerWithAnimation(BUTTON_DURATION) {

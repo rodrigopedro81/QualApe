@@ -7,12 +7,12 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.FieldsState
 import com.authentication.Authentication
 import com.domain.commons.Constants.AnimationDurations.BUTTON_DURATION
 import com.domain.commons.Constants.AnimationDurations.FEATHERS_DURATION
 import com.domain.commons.Verifier.verifyPassword
-import com.login.FieldsState
-import com.login.LoginViewModel
+import com.LoginViewModel
 import com.login.R
 import com.login.databinding.FragmentCreatePasswordBinding
 import com.qds.feathersAnimation
@@ -33,8 +33,8 @@ class CreatePasswordFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentCreatePasswordBinding.inflate(inflater)
-        viewModel.setFieldsAsInvalid()
         setupObserver()
+        checkFields()
         with(binding) {
             root.feathersAnimation(FEATHERS_DURATION)
             buttonGoBack.setOnClickListenerWithAnimation(BUTTON_DURATION) {
@@ -85,19 +85,19 @@ class CreatePasswordFragment : Fragment() {
             validationRule = { text ->
                 verifyPassword(text)
             },
-            doAfter = { updateState() }
+            doAfter = { checkFields() }
         )
         confirmPasswordField.setValidationScript(
             validationRule = { text ->
                 verifyPassword(text)
             },
-            doAfter = { updateState() }
+            doAfter = { checkFields() }
         )
     }
 
     private fun passwordsAreEqual() = passwordField.text == confirmPasswordField.text
 
-    private fun updateState() {
+    private fun checkFields() {
         if (passwordsAreEqual()) {
             viewModel.setFieldsAsValid()
         } else {

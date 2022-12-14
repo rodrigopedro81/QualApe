@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.FieldsState
+import com.LoginViewModel
 import com.authentication.Authentication
 import com.domain.commons.Constants.AnimationDurations.BUTTON_DURATION
 import com.domain.commons.Constants.AnimationDurations.FADE_DURATION
@@ -16,11 +17,11 @@ import com.domain.commons.Verifier.verifyEmail
 import com.domain.commons.Verifier.verifyPassword
 import com.login.databinding.FragmentLoginBinding
 import com.qds.*
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class LoginFragment : Fragment() {
 
-    private val viewModel: LoginViewModel by viewModel()
+    private val viewModel: LoginViewModel by sharedViewModel()
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
 
@@ -31,6 +32,7 @@ class LoginFragment : Fragment() {
     ): View {
         _binding = FragmentLoginBinding.inflate(inflater)
         setupObserver()
+        checkFields()
         with(binding) {
             root.feathersAnimation(FEATHERS_DURATION)
             buttonCreateAccount.setOnClickListenerWithAnimation(BUTTON_DURATION) {
