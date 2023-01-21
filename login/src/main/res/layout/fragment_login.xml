@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textViewHeader"
+        style="@style/Header"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_margin="24dp"
+        android:text="@string/você_já_de_casa"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/textViewSubtitle"
+        android:layout_width="0dp"
+        android:layout_height="19dp"
+        android:text="@string/fique_vontade"
+        android:textSize="16sp"
+        android:textColor="@color/light_grey"
+        app:layout_constraintTop_toBottomOf="@id/textViewHeader"
+        app:layout_constraintStart_toStartOf="@id/textViewHeader"
+        app:layout_constraintEnd_toEndOf="@id/textViewHeader"
+        />
+
+    <com.qds.MainEditText
+        android:id="@+id/mainEditTextEmail"
+        style="@style/MainEditTextPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:label="E-mail"
+        app:hint="Digite seu e-mail"
+        app:startIcon="@drawable/ic_email"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewSubtitle"
+        />
+
+    <com.qds.MainEditText
+        android:id="@+id/mainEditTextPassword"
+        style="@style/MainEditTextPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:label="Senha"
+        app:hint="Digite sua senha"
+        android:inputType="textPassword"
+        app:startIcon="@drawable/ic_password"
+        app:layout_constraintTop_toBottomOf="@id/mainEditTextEmail"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="20dp"
+        />
+
+    <com.qds.MainButton
+        android:id="@+id/mainButtonLogin"
+        style="@style/MainButtonPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginHorizontal="24dp"
+        android:text="@string/entrar"
+        app:layout_constraintTop_toBottomOf="@id/mainEditTextPassword"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <com.qds.MainButton
+        android:id="@+id/mainButtonCreateAccount"
+        style="@style/MainButtonSecondary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="24dp"
+        android:text="@string/criar_minha_conta"
+        app:layout_constraintTop_toBottomOf="@id/mainButtonLogin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
