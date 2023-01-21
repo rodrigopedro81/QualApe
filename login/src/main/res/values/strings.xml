@@ -1,5 +1,21 @@
 <resources>
     <string name="app_name">Login</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="register_title">Olá, Morador</string>
+    <string name="register_subTitle">Seus vizinhos estão esperando por você</string>
+    <string name="register_email_hint">Digite seu e-mail</string>
+    <string name="register_email_label">E-mail</string>
+    <string name="register_whatsapp_label">WhatsApp</string>
+    <string name="register_whatsapp_hint">(00) 00000-0000</string>
+    <string name="register_apNumber_hint">000</string>
+    <string name="register_apNumber_label">Número do apê</string>
+    <string name="register_block_hint">AA</string>
+    <string name="register_block_label">Bloco</string>
+    <string name="register_name_hint">Como você se chama?</string>
+    <string name="register_name_label">Nome</string>
+    <string name="você_já_de_casa">Você já é de casa</string>
+    <string name="fique_vontade">Fique à vontade</string>
+    <string name="entrar">Entrar</string>
+    <string name="register_text_button">Avançar</string>
+    <string name="criar_minha_conta">Criar minha conta</string>
 </resources>

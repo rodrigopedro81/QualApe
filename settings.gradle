@@ -13,6 +13,9 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "QualApe"
-include ':login'
 include ':app'
+include ':authentication'
+include ':login'
 include ':designsystem'
+include ':domain'
+include ':database'
