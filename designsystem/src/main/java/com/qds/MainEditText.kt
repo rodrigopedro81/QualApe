@@ -53,34 +53,16 @@ class MainEditText @JvmOverloads constructor(
             corner = attributes.getDimension(R.styleable.MainEditText_corner, 0F)
             strokeWidth = attributes.getDimension(R.styleable.MainEditText_strokeWidth, 0F)
             mainColor = attributes.getColor(R.styleable.MainEditText_mainColor, 0)
-//            setAsPassword(attributes.getInteger(R.styleable.MainEditText_android_inputType, 0))
-            changeBackground(mainColor)
+            changeColors(mainColor)
             editText.animateFocus(150L)
             attributes.recycle()
         }
     }
 
-//    private fun setAsPassword(type: Int) {
-//        if (type == PASSWORD_FLAG) {
-//            editText.transformationMethod = PasswordTransformationMethod.getInstance()
-//
-//        }
-//    }
-
-    fun setValidationScript(validationRule: (String) -> Boolean, doAfter: () -> Unit = {}) {
+    fun setValidationRule(validationRule: (String) -> Boolean, doAfter: () -> Unit = {}) {
         editText.doAfterTextChanged {
             _fieldIsValid = validationRule.invoke(it.toString())
             doAfter.invoke()
-        }
-    }
-
-    fun setValidationScript(validationRule: (String) -> Boolean) {
-        editText.doAfterTextChanged {
-            _fieldIsValid = if (it.isNullOrBlank()) {
-                validationRule.invoke("")
-            } else {
-                validationRule.invoke(it.toString())
-            }
         }
     }
 
@@ -93,31 +75,27 @@ class MainEditText @JvmOverloads constructor(
     }
 
     private fun setIcon(icon: Drawable?) {
-        binding.textViewLabel.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null)
+        binding.customMainEditText.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null)
     }
 
     private fun setupViewByState() {
-        changeBackground(
+        changeColors(
             newColor = if (_fieldIsValid) mainColor else errorColor
         )
     }
 
-    private fun changeBackground(newColor: Int) {
+    private fun changeColors(newColor: Int) {
         val newBackground = GradientDrawable().apply {
             shape = GradientDrawable.RECTANGLE
             cornerRadius = corner
             color = ColorStateList.valueOf(ContextCompat.getColor(context, R.color.white))
             setStroke(strokeWidth.toInt(), newColor)
         }
-        if (binding.textViewLabel.compoundDrawables[0] != null) {
-            binding.textViewLabel.compoundDrawables[0].setTint(newColor)
+        if (binding.customMainEditText.compoundDrawables[0] != null) {
+            binding.customMainEditText.compoundDrawables[0].setTint(newColor)
         }
-        binding.textViewLabel.setHintTextColor(newColor)
-        binding.textViewLabel.setTextColor(newColor)
-        binding.textViewLabel.background = newBackground
-    }
-
-    companion object {
-        private const val PASSWORD_FLAG = 0x00000081
+        binding.customMainEditText.setHintTextColor(newColor)
+        binding.customMainEditText.setTextColor(newColor)
+        binding.customMainEditText.background = newBackground
     }
 }

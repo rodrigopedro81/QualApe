@@ -11,7 +11,7 @@ object Authentication {
     fun login(
         email:String,
         password:String,
-        callback: (isSuccessful: Boolean, errorMessage: String) -> Unit
+        callback: (isSuccessful: Boolean, errorMessage: String?) -> Unit
     ) {
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
             callback.invoke(it.isSuccessful, it.exception?.message ?: UNKNOWN_ERROR)
@@ -21,7 +21,7 @@ object Authentication {
     fun register(
         email: String,
         password: String,
-        callback: (isSuccessful: Boolean, errorMessage: String) -> Unit
+        callback: (isSuccessful: Boolean, errorMessage: String?) -> Unit
     ) {
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener {
             callback.invoke(it.isSuccessful, it.exception?.message ?: UNKNOWN_ERROR)

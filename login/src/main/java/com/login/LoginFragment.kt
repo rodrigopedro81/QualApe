@@ -35,27 +35,29 @@ class LoginFragment : Fragment() {
         checkFields()
         with(binding) {
             root.feathersAnimation(FEATHERS_DURATION)
-            buttonCreateAccount.setOnClickListenerWithAnimation(BUTTON_DURATION) {
+            mainButtonCreateAccount.setOnClickListenerWithAnimation(BUTTON_DURATION) {
                 root.fadeOut(FADE_DURATION) {
                     findNavController().navigate(R.id.loginFragmentToRegisterFragment)
                 }
             }
-            buttonLogin.setOnClickListenerWithAnimation(BUTTON_DURATION) {
+            mainButtonLogin.setOnClickListenerWithAnimation(BUTTON_DURATION) {
                 if (viewModel.fieldsState.value is FieldsState.FieldsAreValid) {
                     Authentication.login(
                         email = mainEditTextEmail.text,
                         password = mainEditTextPassword.text,
-                        callback = ::handleLoginAuth
+                        callback = { isSuccessful, errorMessage ->
+                            handleLoginAuth(isSuccessful, errorMessage)
+                        }
                     )
                 }
             }
-            mainEditTextEmail.setValidationScript(
+            mainEditTextEmail.setValidationRule(
                 validationRule = { text ->
                     verifyEmail(text)
                 },
                 doAfter = { checkFields() }
             )
-            mainEditTextPassword.setValidationScript(
+            mainEditTextPassword.setValidationRule(
                 validationRule = { text ->
                     verifyPassword(text)
                 },
@@ -76,19 +78,19 @@ class LoginFragment : Fragment() {
     private fun setupObserver() {
         viewModel.fieldsState.observe(viewLifecycleOwner) { state ->
             when (state) {
-                FieldsState.FieldsAreInvalid -> binding.buttonLogin.disableButton()
-                FieldsState.FieldsAreValid -> binding.buttonLogin.enableButton()
+                FieldsState.FieldsAreInvalid -> binding.mainButtonLogin.disableButton()
+                FieldsState.FieldsAreValid -> binding.mainButtonLogin.enableButton()
             }
         }
     }
 
-    private fun handleLoginAuth(isSuccessful: Boolean, errorMessage: String) {
+    private fun handleLoginAuth(isSuccessful: Boolean, errorMessage: String?) {
         if (isSuccessful) navigateToHome() else showError(errorMessage)
     }
 
-    private fun showError(errorMessage: String) {
-        // TODO () -> Mostrar Toast de erro com o por quê
-        Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
+    private fun showError(errorMessage: String?) {
+//      TODO() -> Mostrar popup na tela sobre o erro
+        errorMessage?.let { Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show() }
     }
 
     private fun navigateToHome() {

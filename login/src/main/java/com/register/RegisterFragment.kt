@@ -36,20 +36,20 @@ class RegisterFragment : Fragment() {
         checkFields()
         setupFieldListeners()
         with(binding) {
-            advanceButton.setOnClickListenerWithAnimation(BUTTON_DURATION) {
+            mainButtonAdvance.setOnClickListenerWithAnimation(BUTTON_DURATION) {
                 if (viewModel.fieldsState.value is FieldsState.FieldsAreValid) {
                     val user = User(
-                        name = name.text,
-                        email = email.text,
-                        wpp = wpp.text,
-                        block = block.text,
-                        apartment = apNumber.text
+                        name = mainEditTextName.text,
+                        email = mainEditTextEmail.text,
+                        wpp = mainEditTextWhatsapp.text,
+                        block = mainEditTextBlock.text,
+                        apartment = mainEditTextApartmentNumber.text
                     )
                     viewModel.saveUserInfo(user)
                     navigateToCreatePasswordFragment()
                 }
             }
-            buttonGoLogin.setOnClickListenerWithAnimation(BUTTON_DURATION) {
+            mainButtonGoLogin.setOnClickListenerWithAnimation(BUTTON_DURATION) {
                 findNavController().navigate(R.id.registerFragmentToLoginFragment)
             }
         }
@@ -58,33 +58,33 @@ class RegisterFragment : Fragment() {
 
     private fun setupFieldListeners() {
         with(binding) {
-            name.setValidationScript(
+            mainEditTextName.setValidationRule(
                 validationRule = {
                     verifyName(it)
                 },
                 doAfter = { checkFields() }
             )
-            email.setValidationScript(
+            mainEditTextEmail.setValidationRule(
                 validationRule = {
                     verifyEmail(it)
                 },
                 doAfter = { checkFields() }
             )
-            apNumber.setValidationScript(
+            mainEditTextWhatsapp.setValidationRule(
                 validationRule = {
-                    verifyApartment(it)
+                    verifyWpp(it)
                 },
                 doAfter = { checkFields() }
             )
-            block.setValidationScript(
+            mainEditTextBlock.setValidationRule(
                 validationRule = {
                     verifyBlock(it)
                 },
                 doAfter = { checkFields() }
             )
-            wpp.setValidationScript(
+            mainEditTextApartmentNumber.setValidationRule(
                 validationRule = {
-                    verifyWpp(it)
+                    verifyApartment(it)
                 },
                 doAfter = { checkFields() }
             )
@@ -100,14 +100,20 @@ class RegisterFragment : Fragment() {
     }
 
     private fun allFieldsAreValid(): Boolean = with(binding) {
-        listOf(name, apNumber, wpp, block, email).all { it.fieldIsValid }
+        listOf(
+            mainEditTextName,
+            mainEditTextEmail,
+            mainEditTextWhatsapp,
+            mainEditTextBlock,
+            mainEditTextApartmentNumber
+        ).all { it.fieldIsValid }
     }
 
     private fun setupObserver() {
         viewModel.fieldsState.observe(viewLifecycleOwner) { state ->
             when (state) {
-                FieldsState.FieldsAreInvalid -> binding.advanceButton.disableButton()
-                FieldsState.FieldsAreValid -> binding.advanceButton.enableButton()
+                FieldsState.FieldsAreInvalid -> binding.mainButtonAdvance.disableButton()
+                FieldsState.FieldsAreValid -> binding.mainButtonAdvance.enableButton()
             }
         }
     }

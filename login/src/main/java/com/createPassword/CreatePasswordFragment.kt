@@ -25,8 +25,8 @@ class CreatePasswordFragment : Fragment() {
 
     private var _binding: FragmentCreatePasswordBinding? = null
     private val binding get() = _binding!!
-    private val passwordField get() = binding.editTextPassword
-    private val confirmPasswordField get() = binding.editTextConfirmPassword
+    private val passwordField get() = binding.mainEditTextCreatePassword
+    private val confirmPasswordField get() = binding.mainEditTextConfirmPassword
     private val viewModel: LoginViewModel by sharedViewModel()
 
     override fun onCreateView(
@@ -39,10 +39,10 @@ class CreatePasswordFragment : Fragment() {
         checkFields()
         with(binding) {
             root.feathersAnimation(FEATHERS_DURATION)
-            buttonGoBack.setOnClickListenerWithAnimation(BUTTON_DURATION) {
+            mainButtonGoBack.setOnClickListenerWithAnimation(BUTTON_DURATION) {
                 activity?.onBackPressed()
             }
-            buttonCreateAccount.setOnClickListenerWithAnimation(BUTTON_DURATION) {
+            mainButtonCreateAccount.setOnClickListenerWithAnimation(BUTTON_DURATION) {
                 if (viewModel.fieldsState.value is FieldsState.FieldsAreValid) {
                     with(viewModel.user) {
                         Authentication.register(
@@ -67,32 +67,34 @@ class CreatePasswordFragment : Fragment() {
     private fun setupObserver() {
         viewModel.fieldsState.observe(viewLifecycleOwner) { state ->
             when (state){
-                FieldsState.FieldsAreInvalid -> binding.buttonCreateAccount.disableButton()
-                FieldsState.FieldsAreValid -> binding.buttonCreateAccount.enableButton()
+                FieldsState.FieldsAreInvalid -> binding.mainButtonCreateAccount.disableButton()
+                FieldsState.FieldsAreValid -> binding.mainButtonCreateAccount.enableButton()
             }
         }
     }
 
-    private fun handleError(errorMessage: String) {
-        // TODO () -> Mostrar Toast de erro com o por quê
-        Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
+    private fun handleError(errorMessage: String?) {
+        errorMessage?.let { Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show() }
     }
 
     private fun handleSuccess(user: User) {
-        Database.saveUserData(user) {
-//            findNavController().navigate(R.id.action_createPasswordFragment_to_loginFragment)
-            Toast.makeText(context, "Tentou salvar no banco de dados!", Toast.LENGTH_SHORT).show()
+        Database.saveUserData(user) { wasSuccessful ->
+            if (wasSuccessful) {
+                findNavController().navigate(R.id.action_createPasswordFragment_to_loginFragment)
+            } else {
+
+            }
         }
     }
 
     private fun setupFieldListeners() {
-        passwordField.setValidationScript(
+        passwordField.setValidationRule(
             validationRule = { text ->
                 verifyPassword(text)
             },
             doAfter = { checkFields() }
         )
-        confirmPasswordField.setValidationScript(
+        confirmPasswordField.setValidationRule(
             validationRule = { text ->
                 verifyPassword(text)
             },
