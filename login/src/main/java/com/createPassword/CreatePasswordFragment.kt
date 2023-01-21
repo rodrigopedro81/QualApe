@@ -82,7 +82,7 @@ class CreatePasswordFragment : Fragment() {
             if (wasSuccessful) {
                 findNavController().navigate(R.id.action_createPasswordFragment_to_loginFragment)
             } else {
-
+                // TODO () -> Arranjar forma recursiva inteligente de tentar novamente até conseguir
             }
         }
     }
