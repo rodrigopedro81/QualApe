@@ -17,6 +17,7 @@ import com.domain.commons.Verifier.verifyEmail
 import com.domain.commons.Verifier.verifyPassword
 import com.login.databinding.FragmentLoginBinding
 import com.qds.*
+import com.qds.MainDialog.Companion.buildMainDialog
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class LoginFragment : Fragment() {
@@ -89,12 +90,18 @@ class LoginFragment : Fragment() {
     }
 
     private fun showError(errorMessage: String?) {
-//      TODO() -> Mostrar popup na tela sobre o erro
-        errorMessage?.let { Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show() }
+        errorMessage?.let {
+            context?.buildMainDialog(
+                description = errorMessage,
+                buttonClickListener = { it.dismiss() },
+                buttonText = ERROR_DIALOG_BUTTON
+            )
+        }
     }
 
     private fun navigateToHome() {
         // TODO () -> Navegar para a Home
+//        findNavController().navigate()
         Toast.makeText(context, "Logou com sucesso!", Toast.LENGTH_SHORT).show()
     }
 
@@ -107,5 +114,9 @@ class LoginFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        private const val ERROR_DIALOG_BUTTON = "Ok"
     }
 }

@@ -10,4 +10,5 @@
     <color name="grey">#606060</color>
     <color name="wine">#8C0343</color>
     <color name="light_red">#ff4336</color>
+    <color name="transparent_black">#96000000</color>
 </resources>

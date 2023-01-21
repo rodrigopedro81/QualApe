@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Login</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="register_title">Olá, Morador</string>
+    <string name="register_title">Olá, morador</string>
     <string name="register_subTitle">Seus vizinhos estão esperando por você</string>
     <string name="register_email_hint">Digite seu e-mail</string>
     <string name="register_email_label">E-mail</string>
