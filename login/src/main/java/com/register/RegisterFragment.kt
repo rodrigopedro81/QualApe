@@ -8,7 +8,6 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.LoginViewModel
-import com.domain.commons.Constants.AnimationDurations.BUTTON_DURATION
 import com.domain.commons.Verifier.isApartmentValid
 import com.domain.commons.Verifier.isBlockValid
 import com.domain.commons.Verifier.isEmailValid
@@ -35,7 +34,7 @@ class RegisterFragment : Fragment() {
         setupFieldListeners()
         updateRegisterButtonState()
         with(binding) {
-            mainButtonAdvance.setOnClickListenerWithAnimation(BUTTON_DURATION) {
+            mainButtonAdvance.setOnClickListenerWithAnimation {
                 if (allFieldsAreValid()) {
                     val userInfo = UserInfo(
                         name = mainEditTextName.text,
@@ -48,7 +47,7 @@ class RegisterFragment : Fragment() {
                     navigateToCreatePasswordFragment()
                 }
             }
-            mainButtonGoLogin.setOnClickListenerWithAnimation(BUTTON_DURATION) {
+            mainButtonGoLogin.setOnClickListenerWithAnimation {
                 findNavController().navigate(R.id.registerFragmentToLoginFragment)
             }
         }

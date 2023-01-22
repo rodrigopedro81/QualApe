@@ -8,6 +8,10 @@ object Authentication {
     private const val UNKNOWN_ERROR = "An Unknown error has occurred"
     private val auth = Firebase.auth
 
+    fun userIsAuthenticated() = auth.currentUser != null
+
+    fun userEmail() = auth.currentUser?.email
+
     fun login(
         email:String,
         password:String,

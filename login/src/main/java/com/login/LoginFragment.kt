@@ -11,9 +11,6 @@ import androidx.navigation.NavDeepLinkRequest
 import androidx.navigation.fragment.findNavController
 import com.authentication.Authentication
 import com.database.Database.fetchUserDataForSingleton
-import com.domain.commons.Constants.AnimationDurations.BUTTON_DURATION
-import com.domain.commons.Constants.AnimationDurations.FADE_DURATION
-import com.domain.commons.Constants.AnimationDurations.FEATHERS_DURATION
 import com.domain.commons.Verifier.isEmailValid
 import com.domain.commons.Verifier.isPasswordValid
 import com.login.databinding.FragmentLoginBinding
@@ -35,13 +32,13 @@ class LoginFragment : Fragment() {
         _binding = FragmentLoginBinding.inflate(inflater)
         with(binding) {
             updateLoginButtonState()
-            root.feathersAnimation(FEATHERS_DURATION)
-            mainButtonCreateAccount.setOnClickListenerWithAnimation(BUTTON_DURATION) {
-                root.fadeOut(FADE_DURATION) {
+            root.feathersAnimation()
+            mainButtonCreateAccount.setOnClickListenerWithAnimation {
+                root.fadeOut {
                     findNavController().navigate(R.id.loginFragmentToRegisterFragment)
                 }
             }
-            mainButtonLogin.setOnClickListenerWithAnimation(BUTTON_DURATION) {
+            mainButtonLogin.setOnClickListenerWithAnimation {
                 if (allFieldsAreValid()) {
                     Authentication.login(
                         email = mainEditTextEmailLayout.text,
@@ -76,6 +73,24 @@ class LoginFragment : Fragment() {
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+        if (Authentication.userIsAuthenticated()) {
+            Authentication.userEmail()?.let { userEmail ->
+                buildMainDialog(
+                    context = requireContext(),
+                    title = "Você já está logado",
+                    description = "Detectamos que você logou recentemente no app com o email: $userEmail ",
+                    buttonClickListener = {
+                        startHomeModule(userEmail)
+                        it.dismiss()
+                    },
+                    buttonText = "Ok!"
+                )
+            }
+        }
+    }
+
     private fun updateLoginButtonState() {
         if (allFieldsAreValid()) {
             binding.mainButtonLogin.enableButton()
@@ -87,10 +102,15 @@ class LoginFragment : Fragment() {
     private fun handleLoginAuth(isSuccessful: Boolean, errorMessage: String?) {
         if (isSuccessful) {
             val userEmail = binding.mainEditTextEmailLayout.text
-            fetchUserDataForSingleton(userEmail)
-            navigateToHome()
+            startHomeModule(userEmail)
         } else {
             showError(errorMessage)
+        }
+    }
+
+    private fun startHomeModule(userEmail: String) {
+        fetchUserDataForSingleton(userEmail) { fetchedSuccessfully ->
+            if (fetchedSuccessfully) navigateToHome() else showError("")
         }
     }
 

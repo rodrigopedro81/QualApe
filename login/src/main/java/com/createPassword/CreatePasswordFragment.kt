@@ -8,8 +8,6 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.authentication.Authentication
-import com.domain.commons.Constants.AnimationDurations.BUTTON_DURATION
-import com.domain.commons.Constants.AnimationDurations.FEATHERS_DURATION
 import com.LoginViewModel
 import com.database.Database
 import com.domain.commons.Verifier.isPasswordValid
@@ -32,11 +30,11 @@ class CreatePasswordFragment : Fragment() {
     ): View {
         _binding = FragmentCreatePasswordBinding.inflate(inflater)
         with(binding) {
-            root.feathersAnimation(FEATHERS_DURATION)
-            mainButtonGoBack.setOnClickListenerWithAnimation(BUTTON_DURATION) {
+            root.feathersAnimation()
+            mainButtonGoBack.setOnClickListenerWithAnimation {
                 activity?.onBackPressed()
             }
-            mainButtonCreateAccount.setOnClickListenerWithAnimation(BUTTON_DURATION) {
+            mainButtonCreateAccount.setOnClickListenerWithAnimation {
                 if (allFieldsAreValid()) {
                     with(viewModel.userInfo) {
                         Authentication.register(
