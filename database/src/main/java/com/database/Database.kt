@@ -13,7 +13,7 @@ import com.google.firebase.ktx.Firebase
 
 object Database {
 
-    fun getFirestoreInstance() = Firebase.firestore
+    private fun getFirestoreInstance() = Firebase.firestore
 
     fun saveUserData(
         userInfo: UserInfo,

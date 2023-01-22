@@ -5,4 +5,5 @@
     <string name="produtos">Produtos</string>
     <string name="comidas">Comidas</string>
     <string name="implicit_deeplink_home">qualape-app://home_module/home_fragment</string>
+    <string name="fique_vontade">Fique à vontade</string>
 </resources>
