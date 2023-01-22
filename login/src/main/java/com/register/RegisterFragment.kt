@@ -76,7 +76,7 @@ class RegisterFragment : Fragment() {
                     if (it.toString().isEmailValid()) {
                         mainEditTextEmail.setEditTextAsValid()
                     } else {
-                        mainEditTextName.setEditTextAsInvalid()
+                        mainEditTextEmail.setEditTextAsInvalid()
                     }
                     updateRegisterButtonState()
                 }
