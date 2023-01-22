@@ -25,7 +25,6 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class LoginFragment : Fragment() {
 
-    private val viewModel: LoginViewModel by sharedViewModel()
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
 
