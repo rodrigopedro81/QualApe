@@ -5,15 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.FieldsState
 import com.authentication.Authentication
 import com.domain.commons.Constants.AnimationDurations.BUTTON_DURATION
 import com.domain.commons.Constants.AnimationDurations.FEATHERS_DURATION
-import com.domain.commons.Verifier.verifyPassword
 import com.LoginViewModel
 import com.database.Database
+import com.domain.commons.Verifier.isPasswordValid
 import com.domain.model.User
 import com.login.R
 import com.login.databinding.FragmentCreatePasswordBinding
@@ -25,29 +25,22 @@ class CreatePasswordFragment : Fragment() {
 
     private var _binding: FragmentCreatePasswordBinding? = null
     private val binding get() = _binding!!
-    private val passwordField get() = binding.mainEditTextCreatePassword
-    private val confirmPasswordField get() = binding.mainEditTextConfirmPassword
     private val viewModel: LoginViewModel by sharedViewModel()
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentCreatePasswordBinding.inflate(inflater)
-        setupObserver()
-        checkFields()
         with(binding) {
             root.feathersAnimation(FEATHERS_DURATION)
             mainButtonGoBack.setOnClickListenerWithAnimation(BUTTON_DURATION) {
                 activity?.onBackPressed()
             }
             mainButtonCreateAccount.setOnClickListenerWithAnimation(BUTTON_DURATION) {
-                if (viewModel.fieldsState.value is FieldsState.FieldsAreValid) {
+                if (allFieldsAreValid()) {
                     with(viewModel.user) {
                         Authentication.register(
-                            email,
-                            passwordField.text
+                            email, binding.mainEditTextCreatePassword.text
                         ) { isSuccessful, errorMessage ->
                             if (isSuccessful) {
                                 handleSuccess(this)
@@ -62,15 +55,6 @@ class CreatePasswordFragment : Fragment() {
         }
         setupFieldListeners()
         return binding.root
-    }
-
-    private fun setupObserver() {
-        viewModel.fieldsState.observe(viewLifecycleOwner) { state ->
-            when (state){
-                FieldsState.FieldsAreInvalid -> binding.mainButtonCreateAccount.disableButton()
-                FieldsState.FieldsAreValid -> binding.mainButtonCreateAccount.enableButton()
-            }
-        }
     }
 
     private fun handleError(errorMessage: String?) {
@@ -88,27 +72,41 @@ class CreatePasswordFragment : Fragment() {
     }
 
     private fun setupFieldListeners() {
-        passwordField.setValidationRule(
-            validationRule = { text ->
-                verifyPassword(text)
-            },
-            doAfter = { checkFields() }
-        )
-        confirmPasswordField.setValidationRule(
-            validationRule = { text ->
-                verifyPassword(text)
-            },
-            doAfter = { checkFields() }
-        )
+        with(binding) {
+            mainEditTextCreatePassword.editText.doAfterTextChanged {
+                if (it.toString().isNotEmpty()) {
+                    if (it.toString().isPasswordValid()) {
+                        mainEditTextCreatePassword.setEditTextAsValid()
+                    } else {
+                        mainEditTextCreatePassword.setEditTextAsInvalid()
+                    }
+                    updateCreatePasswordButtonState()
+                }
+            }
+            mainEditTextConfirmPassword.editText.doAfterTextChanged {
+                if (it.toString().isNotEmpty()) {
+                    if (it.toString().isPasswordValid()) {
+                        mainEditTextConfirmPassword.setEditTextAsValid()
+                    } else {
+                        mainEditTextConfirmPassword.setEditTextAsInvalid()
+                    }
+                    updateCreatePasswordButtonState()
+                }
+            }
+        }
     }
 
-    private fun passwordsAreEqual() = passwordField.text == confirmPasswordField.text
+    private fun allFieldsAreValid() = with(binding) {
+        mainEditTextCreatePassword.text == mainEditTextConfirmPassword.text
+                && mainEditTextCreatePassword.fieldIsValid
+                && mainEditTextConfirmPassword.fieldIsValid
+    }
 
-    private fun checkFields() {
-        if (passwordsAreEqual()) {
-            viewModel.setFieldsAsValid()
+    private fun updateCreatePasswordButtonState() {
+        if (allFieldsAreValid()) {
+            binding.mainButtonCreateAccount.enableButton()
         } else {
-            viewModel.setFieldsAsInvalid()
+            binding.mainButtonCreateAccount.disableButton()
         }
     }
 

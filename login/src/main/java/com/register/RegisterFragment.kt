@@ -1,20 +1,24 @@
 package com.register
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedDispatcher
+import androidx.activity.addCallback
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.FieldsState
 import com.domain.commons.Constants.AnimationDurations.BUTTON_DURATION
-import com.domain.commons.Verifier.verifyApartment
-import com.domain.commons.Verifier.verifyBlock
-import com.domain.commons.Verifier.verifyEmail
-import com.domain.commons.Verifier.verifyName
-import com.domain.commons.Verifier.verifyWpp
+import com.domain.commons.Verifier.isEmailValid
+import com.domain.commons.Verifier.isNameValid
 import com.domain.model.User
 import com.LoginViewModel
+import com.domain.commons.Verifier.isApartmentValid
+import com.domain.commons.Verifier.isBlockValid
+import com.domain.commons.Verifier.isWhatsappValid
 import com.login.R
 import com.login.databinding.FragmentRegisterBinding
 import com.qds.setOnClickListenerWithAnimation
@@ -32,12 +36,11 @@ class RegisterFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentRegisterBinding.inflate(inflater)
-        setupObserver()
-        checkFields()
         setupFieldListeners()
+        updateRegisterButtonState()
         with(binding) {
             mainButtonAdvance.setOnClickListenerWithAnimation(BUTTON_DURATION) {
-                if (viewModel.fieldsState.value is FieldsState.FieldsAreValid) {
+                if (allFieldsAreValid()) {
                     val user = User(
                         name = mainEditTextName.text,
                         email = mainEditTextEmail.text,
@@ -58,44 +61,64 @@ class RegisterFragment : Fragment() {
 
     private fun setupFieldListeners() {
         with(binding) {
-            mainEditTextName.setValidationRule(
-                validationRule = {
-                    verifyName(it)
-                },
-                doAfter = { checkFields() }
-            )
-            mainEditTextEmail.setValidationRule(
-                validationRule = {
-                    verifyEmail(it)
-                },
-                doAfter = { checkFields() }
-            )
-            mainEditTextWhatsapp.setValidationRule(
-                validationRule = {
-                    verifyWpp(it)
-                },
-                doAfter = { checkFields() }
-            )
-            mainEditTextBlock.setValidationRule(
-                validationRule = {
-                    verifyBlock(it)
-                },
-                doAfter = { checkFields() }
-            )
-            mainEditTextApartmentNumber.setValidationRule(
-                validationRule = {
-                    verifyApartment(it)
-                },
-                doAfter = { checkFields() }
-            )
+            mainEditTextName.editText.doAfterTextChanged {
+                if (it.toString().isNotEmpty()) {
+                    if (it.toString().isNameValid()) {
+                        mainEditTextName.setEditTextAsValid()
+                    } else {
+                        mainEditTextName.setEditTextAsInvalid()
+                    }
+                    updateRegisterButtonState()
+                }
+            }
+            mainEditTextEmail.editText.doAfterTextChanged {
+                if (it.toString().isNotEmpty()) {
+                    if (it.toString().isEmailValid()) {
+                        mainEditTextEmail.setEditTextAsValid()
+                    } else {
+                        mainEditTextName.setEditTextAsInvalid()
+                    }
+                    updateRegisterButtonState()
+                }
+            }
+            mainEditTextWhatsapp.editText.doAfterTextChanged {
+                if (it.toString().isNotEmpty()) {
+                    if (it.toString().isWhatsappValid()) {
+                        mainEditTextWhatsapp.setEditTextAsValid()
+                    } else {
+                        mainEditTextWhatsapp.setEditTextAsInvalid()
+                    }
+                    updateRegisterButtonState()
+                }
+            }
+            mainEditTextBlock.editText.doAfterTextChanged {
+                if (it.toString().isNotEmpty()) {
+                    if (it.toString().isBlockValid()) {
+                        mainEditTextBlock.setEditTextAsValid()
+                    } else {
+                        mainEditTextBlock.setEditTextAsInvalid()
+                    }
+                    updateRegisterButtonState()
+                }
+            }
+            mainEditTextApartmentNumber.editText.doAfterTextChanged {
+                if (it.toString().isNotEmpty()) {
+                    if (it.toString().isApartmentValid()) {
+                        mainEditTextApartmentNumber.setEditTextAsValid()
+                    } else {
+                        mainEditTextApartmentNumber.setEditTextAsInvalid()
+                    }
+                    updateRegisterButtonState()
+                }
+            }
         }
     }
 
-    private fun checkFields() {
+    private fun updateRegisterButtonState() {
         if (allFieldsAreValid()) {
-            viewModel.setFieldsAsValid()
+            binding.mainButtonAdvance.enableButton()
         } else {
-            viewModel.setFieldsAsInvalid()
+            binding.mainButtonAdvance.disableButton()
         }
     }
 
@@ -107,15 +130,6 @@ class RegisterFragment : Fragment() {
             mainEditTextBlock,
             mainEditTextApartmentNumber
         ).all { it.fieldIsValid }
-    }
-
-    private fun setupObserver() {
-        viewModel.fieldsState.observe(viewLifecycleOwner) { state ->
-            when (state) {
-                FieldsState.FieldsAreInvalid -> binding.mainButtonAdvance.disableButton()
-                FieldsState.FieldsAreValid -> binding.mainButtonAdvance.enableButton()
-            }
-        }
     }
 
     private fun navigateToCreatePasswordFragment() {

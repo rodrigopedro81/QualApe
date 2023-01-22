@@ -1,21 +1,23 @@
 package com.login
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.net.toUri
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavDeepLinkRequest
 import androidx.navigation.fragment.findNavController
-import com.FieldsState
 import com.LoginViewModel
 import com.authentication.Authentication
 import com.domain.commons.Constants.AnimationDurations.BUTTON_DURATION
 import com.domain.commons.Constants.AnimationDurations.FADE_DURATION
 import com.domain.commons.Constants.AnimationDurations.FEATHERS_DURATION
-import com.domain.commons.Verifier.verifyEmail
-import com.domain.commons.Verifier.verifyPassword
+import com.domain.commons.Verifier.isEmailValid
+import com.domain.commons.Verifier.isPasswordValid
 import com.login.databinding.FragmentLoginBinding
 import com.qds.*
 import com.qds.MainDialog.Companion.buildMainDialog
@@ -33,9 +35,8 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentLoginBinding.inflate(inflater)
-        setupObserver()
-        checkFields()
         with(binding) {
+            updateLoginButtonState()
             root.feathersAnimation(FEATHERS_DURATION)
             mainButtonCreateAccount.setOnClickListenerWithAnimation(BUTTON_DURATION) {
                 root.fadeOut(FADE_DURATION) {
@@ -43,46 +44,45 @@ class LoginFragment : Fragment() {
                 }
             }
             mainButtonLogin.setOnClickListenerWithAnimation(BUTTON_DURATION) {
-                if (viewModel.fieldsState.value is FieldsState.FieldsAreValid) {
+                if (allFieldsAreValid()) {
                     Authentication.login(
-                        email = mainEditTextEmail.text,
-                        password = mainEditTextPassword.text,
+                        email = mainEditTextEmailLayout.text,
+                        password = mainEditTextPasswordLayout.text,
                         callback = { isSuccessful, errorMessage ->
                             handleLoginAuth(isSuccessful, errorMessage)
                         }
                     )
                 }
             }
-            mainEditTextEmail.setValidationRule(
-                validationRule = { text ->
-                    verifyEmail(text)
-                },
-                doAfter = { checkFields() }
-            )
-            mainEditTextPassword.setValidationRule(
-                validationRule = { text ->
-                    verifyPassword(text)
-                },
-                doAfter = { checkFields() }
-            )
+            mainEditTextEmailLayout.editText.doAfterTextChanged {
+                if (it.toString().isNotEmpty()) {
+                    if (it.toString().isEmailValid()) {
+                        mainEditTextEmailLayout.setEditTextAsValid()
+                    } else {
+                        mainEditTextEmailLayout.setEditTextAsInvalid()
+                    }
+                    updateLoginButtonState()
+                }
+            }
+            mainEditTextPasswordLayout.editText.doAfterTextChanged {
+                if (it.toString().isNotEmpty()) {
+                    if (it.toString().isPasswordValid()) {
+                        mainEditTextPasswordLayout.setEditTextAsValid()
+                    } else {
+                        mainEditTextPasswordLayout.setEditTextAsInvalid()
+                    }
+                    updateLoginButtonState()
+                }
+            }
         }
         return binding.root
     }
 
-    private fun checkFields() {
+    private fun updateLoginButtonState() {
         if (allFieldsAreValid()) {
-            viewModel.setFieldsAsValid()
+            binding.mainButtonLogin.enableButton()
         } else {
-            viewModel.setFieldsAsInvalid()
-        }
-    }
-
-    private fun setupObserver() {
-        viewModel.fieldsState.observe(viewLifecycleOwner) { state ->
-            when (state) {
-                FieldsState.FieldsAreInvalid -> binding.mainButtonLogin.disableButton()
-                FieldsState.FieldsAreValid -> binding.mainButtonLogin.enableButton()
-            }
+            binding.mainButtonLogin.disableButton()
         }
     }
 
@@ -109,9 +109,10 @@ class LoginFragment : Fragment() {
 
     private fun allFieldsAreValid(): Boolean {
         return with(binding) {
-            mainEditTextEmail.fieldIsValid && mainEditTextPassword.fieldIsValid
+            mainEditTextEmailLayout.fieldIsValid && mainEditTextPasswordLayout.fieldIsValid
         }
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
