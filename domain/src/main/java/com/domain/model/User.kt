@@ -6,5 +6,4 @@ data class User(
     val wpp: String,
     val block: String,
     val apartment: String
-) {
-}
+)

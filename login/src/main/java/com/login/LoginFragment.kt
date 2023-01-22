@@ -1,8 +1,6 @@
 package com.login
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +9,6 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavDeepLinkRequest
 import androidx.navigation.fragment.findNavController
-import com.LoginViewModel
 import com.authentication.Authentication
 import com.domain.commons.Constants.AnimationDurations.BUTTON_DURATION
 import com.domain.commons.Constants.AnimationDurations.FADE_DURATION
@@ -19,9 +16,10 @@ import com.domain.commons.Constants.AnimationDurations.FEATHERS_DURATION
 import com.domain.commons.Verifier.isEmailValid
 import com.domain.commons.Verifier.isPasswordValid
 import com.login.databinding.FragmentLoginBinding
-import com.qds.*
 import com.qds.MainDialog.Companion.buildMainDialog
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import com.qds.fadeOut
+import com.qds.feathersAnimation
+import com.qds.setOnClickListenerWithAnimation
 
 class LoginFragment : Fragment() {
 
