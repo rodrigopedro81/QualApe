@@ -14,7 +14,7 @@ import com.domain.commons.Verifier.isBlockValid
 import com.domain.commons.Verifier.isEmailValid
 import com.domain.commons.Verifier.isNameValid
 import com.domain.commons.Verifier.isWhatsappValid
-import com.domain.model.User
+import com.domain.model.UserInfo
 import com.login.R
 import com.login.databinding.FragmentRegisterBinding
 import com.qds.setOnClickListenerWithAnimation
@@ -37,14 +37,14 @@ class RegisterFragment : Fragment() {
         with(binding) {
             mainButtonAdvance.setOnClickListenerWithAnimation(BUTTON_DURATION) {
                 if (allFieldsAreValid()) {
-                    val user = User(
+                    val userInfo = UserInfo(
                         name = mainEditTextName.text,
                         email = mainEditTextEmail.text,
                         wpp = mainEditTextWhatsapp.text,
                         block = mainEditTextBlock.text,
                         apartment = mainEditTextApartmentNumber.text
                     )
-                    viewModel.saveUserInfo(user)
+                    viewModel.saveUserInfo(userInfo)
                     navigateToCreatePasswordFragment()
                 }
             }

@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavDeepLinkRequest
 import androidx.navigation.fragment.findNavController
 import com.authentication.Authentication
+import com.database.Database.fetchUserDataForSingleton
 import com.domain.commons.Constants.AnimationDurations.BUTTON_DURATION
 import com.domain.commons.Constants.AnimationDurations.FADE_DURATION
 import com.domain.commons.Constants.AnimationDurations.FEATHERS_DURATION
@@ -84,13 +85,20 @@ class LoginFragment : Fragment() {
     }
 
     private fun handleLoginAuth(isSuccessful: Boolean, errorMessage: String?) {
-        if (isSuccessful) navigateToHome() else showError(errorMessage)
+        if (isSuccessful) {
+            val userEmail = binding.mainEditTextEmailLayout.text
+            fetchUserDataForSingleton(userEmail)
+            navigateToHome()
+        } else {
+            showError(errorMessage)
+        }
     }
 
     private fun showError(errorMessage: String?) {
-        errorMessage?.let {
-            context?.buildMainDialog(
-                description = errorMessage,
+        errorMessage?.let { error ->
+            buildMainDialog(
+                context = requireContext(),
+                description = error,
                 buttonClickListener = { it.dismiss() },
                 buttonText = ERROR_DIALOG_BUTTON
             )

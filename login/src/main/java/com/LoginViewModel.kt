@@ -1,13 +1,13 @@
 package com
 
 import androidx.lifecycle.ViewModel
-import com.domain.model.User
+import com.domain.model.UserInfo
 
 class LoginViewModel: ViewModel() {
 
-    lateinit var user: User
+    lateinit var userInfo: UserInfo
 
-    fun saveUserInfo(user: User) {
-        this.user = user
+    fun saveUserInfo(userInfo: UserInfo) {
+        this.userInfo = userInfo
     }
 }

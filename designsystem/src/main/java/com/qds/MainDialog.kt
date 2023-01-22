@@ -47,12 +47,13 @@ class MainDialog(
 
     companion object {
 
-        fun Context.buildMainDialog(
+        fun buildMainDialog(
+            context: Context,
             title: String = "",
             description: String,
             buttonClickListener: (MainDialog) -> Unit,
             buttonText: String = "",
             onDismiss: (MainDialog) -> Unit = {}
-        ) = MainDialog(this, title, description, buttonText, buttonClickListener, onDismiss).show()
+        ) = MainDialog(context, title, description, buttonText, buttonClickListener, onDismiss).show()
     }
 }
