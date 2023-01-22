@@ -4,8 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavDeepLinkRequest
 import androidx.navigation.fragment.findNavController
 import com.FieldsState
 import com.LoginViewModel
@@ -100,9 +101,10 @@ class LoginFragment : Fragment() {
     }
 
     private fun navigateToHome() {
-        // TODO () -> Navegar para a Home
-//        findNavController().navigate()
-        Toast.makeText(context, "Logou com sucesso!", Toast.LENGTH_SHORT).show()
+        val request = NavDeepLinkRequest.Builder
+            .fromUri(HOME_FRAGMENT_ROUTE.toUri())
+            .build()
+        findNavController().navigate(request)
     }
 
     private fun allFieldsAreValid(): Boolean {
@@ -118,5 +120,6 @@ class LoginFragment : Fragment() {
 
     companion object {
         private const val ERROR_DIALOG_BUTTON = "Ok"
+        private const val HOME_FRAGMENT_ROUTE = "qualape-app://home_module/home_fragment"
     }
 }
