@@ -8,10 +8,9 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import androidx.core.widget.doAfterTextChanged
 import com.qds.databinding.CustomMainEditTextBinding
 
-class MainEditText @JvmOverloads constructor(
+class MainEditTextLayout @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet?,
     defStyleAttr: Int = 0
@@ -23,12 +22,7 @@ class MainEditText @JvmOverloads constructor(
     private var corner: Float = 0F
     private var strokeWidth: Float = 0F
     private var mainColor: Int = 0
-    private var _fieldIsValid = false
-        set(value) {
-            field = value
-            setupViewByState()
-        }
-    val fieldIsValid get() = _fieldIsValid
+    var fieldIsValid = false
 
     private val binding = CustomMainEditTextBinding
         .inflate(LayoutInflater.from(context), this, true)
@@ -59,13 +53,6 @@ class MainEditText @JvmOverloads constructor(
         }
     }
 
-    fun setValidationRule(validationRule: (String) -> Boolean, doAfter: () -> Unit = {}) {
-        editText.doAfterTextChanged {
-            _fieldIsValid = validationRule.invoke(it.toString())
-            doAfter.invoke()
-        }
-    }
-
     private fun setHint(hint: String?) {
         binding.customMainEditText.hint = hint
     }
@@ -78,11 +65,16 @@ class MainEditText @JvmOverloads constructor(
         binding.customMainEditText.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null)
     }
 
-    private fun setupViewByState() {
-        changeColors(
-            newColor = if (_fieldIsValid) mainColor else errorColor
-        )
+    fun setEditTextAsValid() {
+        fieldIsValid = true
+        changeColors(newColor = mainColor)
     }
+
+    fun setEditTextAsInvalid() {
+        fieldIsValid = false
+        changeColors(newColor = errorColor)
+    }
+
 
     private fun changeColors(newColor: Int) {
         val newBackground = GradientDrawable().apply {

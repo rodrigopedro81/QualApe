@@ -16,7 +16,6 @@
         android:textSize="14sp"
         />
 
-<!--    TODO () -> Usar uma TextInputLayout onde dentro dela terá uma TextInputEditText -->
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/customMainEditText"
         android:layout_width="match_parent"

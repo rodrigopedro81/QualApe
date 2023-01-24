@@ -2,31 +2,31 @@ package com.domain.commons
 
 object Verifier {
 
-    fun verifyWpp(wpp: String): Boolean =
-        android.util.Patterns.PHONE.matcher(wpp).matches()
+    fun String.isWhatsappValid(): Boolean =
+        android.util.Patterns.PHONE.matcher(this).matches()
 
-    fun verifyApartment(apartment: String): Boolean {
-        return if (apartment.toIntOrNull() != null) {
-            (apartment.toInt() in 100..516)
+    fun String.isApartmentValid(): Boolean {
+        return if (this.toIntOrNull() != null) {
+            (this.toInt() in 100..516)
         } else {
             false
         }
     }
 
-    fun verifyBlock(block: String): Boolean {
-        return if (block.toIntOrNull() != null) {
-            (block.toInt() in 1..9)
+    fun String.isBlockValid(): Boolean {
+        return if (this.toIntOrNull() != null) {
+            (this.toInt() in 1..9)
         } else {
             false
         }
     }
 
-    fun verifyEmail(email: String): Boolean =
-        android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    fun String.isEmailValid(): Boolean =
+        android.util.Patterns.EMAIL_ADDRESS.matcher(this).matches()
 
-    fun verifyName(name: String): Boolean =
-        name.length > 6
+    fun String.isNameValid(): Boolean =
+        this.length > 6
 
-    fun verifyPassword(password: String): Boolean =
-        password.length > 6
+    fun String.isPasswordValid(): Boolean =
+        this.length > 6
 }

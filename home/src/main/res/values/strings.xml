@@ -1,0 +1,9 @@
+<resources>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="servicos">Serviços</string>
+    <string name="produtos">Produtos</string>
+    <string name="comidas">Comidas</string>
+    <string name="implicit_deeplink_home">qualape-app://home_module/home_fragment</string>
+    <string name="fique_vontade">Fique à vontade</string>
+</resources>

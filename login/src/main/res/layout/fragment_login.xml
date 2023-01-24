@@ -29,8 +29,8 @@
         app:layout_constraintEnd_toEndOf="@id/textViewHeader"
         />
 
-    <com.qds.MainEditText
-        android:id="@+id/mainEditTextEmail"
+    <com.qds.MainEditTextLayout
+        android:id="@+id/mainEditTextEmailLayout"
         style="@style/MainEditTextPrimary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -44,8 +44,8 @@
         app:layout_constraintTop_toBottomOf="@+id/textViewSubtitle"
         />
 
-    <com.qds.MainEditText
-        android:id="@+id/mainEditTextPassword"
+    <com.qds.MainEditTextLayout
+        android:id="@+id/mainEditTextPasswordLayout"
         style="@style/MainEditTextPrimary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -53,7 +53,7 @@
         app:hint="Digite sua senha"
         android:inputType="textPassword"
         app:startIcon="@drawable/ic_password"
-        app:layout_constraintTop_toBottomOf="@id/mainEditTextEmail"
+        app:layout_constraintTop_toBottomOf="@id/mainEditTextEmailLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginHorizontal="24dp"
@@ -68,7 +68,7 @@
         android:layout_marginTop="32dp"
         android:layout_marginHorizontal="24dp"
         android:text="@string/entrar"
-        app:layout_constraintTop_toBottomOf="@id/mainEditTextPassword"
+        app:layout_constraintTop_toBottomOf="@id/mainEditTextPasswordLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 

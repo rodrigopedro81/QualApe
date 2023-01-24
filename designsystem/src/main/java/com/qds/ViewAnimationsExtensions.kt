@@ -130,7 +130,7 @@ fun View.fadeIn(duration: Long, function: (() -> Unit)?) {
 /**
  * Animates the view with fade out animation and then executes the retrieved function
  */
-fun View.fadeOut(duration: Long, function: (() -> Unit)?) {
+fun View.fadeOut(duration: Long = FADE_DURATION, function: (() -> Unit)?) {
     this.animate().setDuration(duration).alpha(0.0f).withEndAction {
         function?.let { function() }
     }
@@ -139,7 +139,7 @@ fun View.fadeOut(duration: Long, function: (() -> Unit)?) {
 /**
  * Animates the view with a fall and fade in animation
  */
-fun View.feathersAnimation(duration: Long) {
+fun View.feathersAnimation(duration: Long = FEATHERS_DURATION) {
     this.alpha = 0.0f
     this.translationY = -100.0f
     this.animate().setDuration(duration).translationY(0.0f).alpha(1.0f)
@@ -148,7 +148,7 @@ fun View.feathersAnimation(duration: Long) {
 /**
  * Animates the button with a quick loop in its size
  */
-fun View.setOnClickListenerWithAnimation(duration: Long, function: () -> Unit) {
+fun View.setOnClickListenerWithAnimation(duration: Long = BUTTON_DURATION, function: () -> Unit) {
     this.setOnClickListener {
         this.animate().setDuration(duration / 2).scaleX(0.95f).scaleY(0.95f).withEndAction {
             this.animate().setDuration(duration / 2).scaleX(1.0f).scaleY(1.0f).withEndAction {
@@ -186,3 +186,7 @@ fun View.setOnClickListenerWithSparkyAnimation(duration: Long, function: () -> U
         }
     }
 }
+
+const val BUTTON_DURATION = 200L
+const val FEATHERS_DURATION = 600L
+const val FADE_DURATION = 600L

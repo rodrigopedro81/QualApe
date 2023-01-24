@@ -1,0 +1,56 @@
+ext {
+
+    // Android
+
+    final androidXCore = "1.7.0"
+    final androidXAppCompat = "1.5.1"
+    final androidMaterial = "1.7.0"
+    final constraintLayout = "2.1.4"
+
+    // Testing
+
+    final junit = "4.13.2"
+    final extJunit = "1.1.4"
+    final espressoCore = "3.5.0"
+
+    // Jetpack
+
+    final navigationFragment = "2.5.3"
+    final navigationUI = "2.5.3"
+    final liveData = "2.5.1"
+    final viewmodel = "2.5.1"
+
+    // Third-party
+
+    final koin = "3.2.0-beta-1"
+
+    androidDependencies = [
+            androidXCore       : "androidx.core:core-ktx:$androidXCore",
+            androidXAppCompat  : "androidx.appcompat:appcompat:$androidXAppCompat",
+            androidMaterial    : "com.google.android.material:material:$androidMaterial",
+            constraintLayout   : "androidx.constraintlayout:constraintlayout:$constraintLayout"
+    ]
+
+    testDependencies = [
+            junit              : "junit:junit:$junit",
+            extJunit           : "androidx.test.ext:junit:$extJunit",
+            espressoCore       : "androidx.test.espresso:espresso-core:$espressoCore"
+    ]
+
+    navigationDependencies = [
+            navigationFragment : "androidx.navigation:navigation-fragment-ktx:$navigationFragment",
+            navigationUI       : "androidx.navigation:navigation-ui-ktx:$navigationUI"
+    ]
+
+    viewModelDependencies = [
+            liveData           : "androidx.lifecycle:lifecycle-livedata-core-ktx:$liveData",
+            viewmodel          : "androidx.lifecycle:lifecycle-viewmodel-ktx:$viewmodel"
+    ]
+
+    koinDependencies = [
+            koinCore           : "io.insert-koin:koin-core:$koin",
+            koinTest           : "io.insert-koin:koin-test:$koin",
+            koinAndroid        : "io.insert-koin:koin-android:$koin"
+    ]
+
+}
