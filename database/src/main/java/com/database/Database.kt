@@ -10,6 +10,7 @@ import com.domain.model.UserInfo
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.session.LoggedUser
 
 object Database {
 
@@ -24,7 +25,7 @@ object Database {
         }
     }
 
-    fun fetchUserDataForSingleton(
+    fun fetchUserDataForSessionModule(
         userEmail: String,
         onComplete: (wasSuccessful: Boolean) -> Unit
     ) {
@@ -59,7 +60,6 @@ object Database {
             onFailure.invoke()
         }
     }
-
 
     private fun getUserCollection(): CollectionReference = getFirestoreInstance().collection(
         if (BuildConfig.DEBUG) TEST_USER_COLLECTION else USER_COLLECTION

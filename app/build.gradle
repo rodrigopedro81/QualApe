@@ -40,26 +40,9 @@ dependencies {
     implementation project(path:':login')
     implementation project(path:':home')
 
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.appcompat:appcompat:1.5.1'
-    implementation 'com.google.android.material:material:1.7.0'
-    implementation 'com.google.firebase:firebase-common-ktx:20.2.0'
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.4'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
-
-    // Firebase
-
-
-    // MVVM
-    implementation 'androidx.lifecycle:lifecycle-livedata-core-ktx:2.5.1'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
-
-    // Koin
-    implementation "io.insert-koin:koin-core:3.2.0-beta-1"
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    testImplementation "io.insert-koin:koin-test:3.2.0-beta-1"
-    implementation "io.insert-koin:koin-android:3.2.0-beta-1"
+    implementation 'com.google.firebase:firebase-common-ktx:20.3.0'
+    implementation androidDependencies.values()
+    implementation testDependencies.values()
+    implementation navigationDependencies.values()
+    implementation koinDependencies.values()
 }

@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavDeepLinkRequest
 import androidx.navigation.fragment.findNavController
 import com.authentication.Authentication
-import com.database.Database.fetchUserDataForSingleton
+import com.database.Database.fetchUserDataForSessionModule
 import com.domain.commons.Verifier.isEmailValid
 import com.domain.commons.Verifier.isPasswordValid
 import com.login.databinding.FragmentLoginBinding
@@ -109,7 +109,7 @@ class LoginFragment : Fragment() {
     }
 
     private fun startHomeModule(userEmail: String) {
-        fetchUserDataForSingleton(userEmail) { fetchedSuccessfully ->
+        fetchUserDataForSessionModule(userEmail) { fetchedSuccessfully ->
             if (fetchedSuccessfully) navigateToHome() else showError("")
         }
     }
@@ -137,7 +137,6 @@ class LoginFragment : Fragment() {
             mainEditTextEmailLayout.fieldIsValid && mainEditTextPasswordLayout.fieldIsValid
         }
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

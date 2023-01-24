@@ -1,4 +1,4 @@
-package com.database
+package com.session
 
 import com.domain.model.UserInfo
 
