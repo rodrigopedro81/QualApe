@@ -43,5 +43,5 @@ dependencies {
     implementation androidDependencies.values()
     implementation testDependencies.values()
     implementation koinDependencies.values()
-
+    implementation navigationDependencies.values()
 }
