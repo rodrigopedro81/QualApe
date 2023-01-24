@@ -7,7 +7,7 @@ import androidx.navigation.fragment.findNavController
 
 fun Fragment.navigateWithRoute(route:String) {
     val request = NavDeepLinkRequest.Builder
-        .fromUri(Routes.HOME_FRAGMENT_ROUTE.toUri())
+        .fromUri(route.toUri())
         .build()
     findNavController().navigate(request)
 }
