@@ -34,4 +34,5 @@ dependencies {
 
     implementation androidDependencies.values()
     implementation testDependencies.values()
+    implementation navigationDependencies.values()
 }

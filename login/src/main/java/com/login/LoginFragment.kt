@@ -11,9 +11,9 @@ import com.database.Database.fetchUserDataForSessionModule
 import com.domain.commons.Verifier.isEmailValid
 import com.domain.commons.Verifier.isPasswordValid
 import com.login.databinding.FragmentLoginBinding
-import com.navigation.Routes
-import com.navigation.navigateWithAction
-import com.navigation.navigateWithRoute
+import com.domain.Routes
+import com.domain.navigateWithAction
+import com.domain.navigateWithRoute
 import com.qds.MainDialog.Companion.buildMainDialog
 import com.qds.fadeOut
 import com.qds.feathersAnimation
@@ -110,7 +110,10 @@ class LoginFragment : Fragment() {
 
     private fun startHomeModule(userEmail: String) {
         fetchUserDataForSessionModule(userEmail) { fetchedSuccessfully ->
-            if (fetchedSuccessfully) navigateToHome() else showError("")
+            if (fetchedSuccessfully)
+                navigateWithRoute(Routes.HOME_FRAGMENT_ROUTE)
+            else
+                showError("")
         }
     }
 
@@ -123,10 +126,6 @@ class LoginFragment : Fragment() {
                 buttonText = ERROR_DIALOG_BUTTON
             )
         }
-    }
-
-    private fun navigateToHome() {
-        navigateWithRoute(Routes.HOME_FRAGMENT_ROUTE)
     }
 
     private fun allFieldsAreValid(): Boolean {

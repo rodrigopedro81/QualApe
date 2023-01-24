@@ -13,7 +13,7 @@ import com.domain.commons.Verifier.isPasswordValid
 import com.domain.model.UserInfo
 import com.login.R
 import com.login.databinding.FragmentCreatePasswordBinding
-import com.navigation.navigateWithAction
+import com.domain.navigateWithAction
 import com.qds.MainDialog.Companion.buildMainDialog
 import com.qds.feathersAnimation
 import com.qds.setOnClickListenerWithAnimation

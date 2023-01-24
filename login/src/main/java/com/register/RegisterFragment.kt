@@ -15,7 +15,7 @@ import com.domain.commons.Verifier.isWhatsappValid
 import com.domain.model.UserInfo
 import com.login.R
 import com.login.databinding.FragmentRegisterBinding
-import com.navigation.navigateWithAction
+import com.domain.navigateWithAction
 import com.qds.setOnClickListenerWithAnimation
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
