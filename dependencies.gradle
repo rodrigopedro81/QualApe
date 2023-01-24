@@ -52,5 +52,4 @@ ext {
             koinTest           : "io.insert-koin:koin-test:$koin",
             koinAndroid        : "io.insert-koin:koin-android:$koin"
     ]
-
 }
