@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import com.LoginViewModel
 import com.domain.commons.Verifier.isApartmentValid
 import com.domain.commons.Verifier.isBlockValid
@@ -16,6 +15,7 @@ import com.domain.commons.Verifier.isWhatsappValid
 import com.domain.model.UserInfo
 import com.login.R
 import com.login.databinding.FragmentRegisterBinding
+import com.navigation.navigateWithAction
 import com.qds.setOnClickListenerWithAnimation
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
@@ -44,11 +44,11 @@ class RegisterFragment : Fragment() {
                         apartment = mainEditTextApartmentNumber.text
                     )
                     viewModel.saveUserInfo(userInfo)
-                    navigateToCreatePasswordFragment()
+                    navigateWithAction(R.id.registerFragmentToCreatePasswordFragment)
                 }
             }
             mainButtonGoLogin.setOnClickListenerWithAnimation {
-                findNavController().navigate(R.id.registerFragmentToLoginFragment)
+                navigateWithAction(R.id.registerFragmentToLoginFragment)
             }
         }
         return binding.root
@@ -125,10 +125,6 @@ class RegisterFragment : Fragment() {
             mainEditTextBlock,
             mainEditTextApartmentNumber
         ).all { it.fieldIsValid }
-    }
-
-    private fun navigateToCreatePasswordFragment() {
-        findNavController().navigate(R.id.registerFragmentToCreatePasswordFragment)
     }
 
     override fun onDestroyView() {

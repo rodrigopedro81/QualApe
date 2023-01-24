@@ -4,16 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.net.toUri
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavDeepLinkRequest
-import androidx.navigation.fragment.findNavController
 import com.authentication.Authentication
 import com.database.Database.fetchUserDataForSessionModule
 import com.domain.commons.Verifier.isEmailValid
 import com.domain.commons.Verifier.isPasswordValid
 import com.login.databinding.FragmentLoginBinding
+import com.navigation.Routes
+import com.navigation.navigateWithAction
+import com.navigation.navigateWithRoute
 import com.qds.MainDialog.Companion.buildMainDialog
 import com.qds.fadeOut
 import com.qds.feathersAnimation
@@ -35,7 +35,7 @@ class LoginFragment : Fragment() {
             root.feathersAnimation()
             mainButtonCreateAccount.setOnClickListenerWithAnimation {
                 root.fadeOut {
-                    findNavController().navigate(R.id.loginFragmentToRegisterFragment)
+                    navigateWithAction(R.id.loginFragmentToRegisterFragment)
                 }
             }
             mainButtonLogin.setOnClickListenerWithAnimation {
@@ -126,10 +126,7 @@ class LoginFragment : Fragment() {
     }
 
     private fun navigateToHome() {
-        val request = NavDeepLinkRequest.Builder
-            .fromUri(HOME_FRAGMENT_ROUTE.toUri())
-            .build()
-        findNavController().navigate(request)
+        navigateWithRoute(Routes.HOME_FRAGMENT_ROUTE)
     }
 
     private fun allFieldsAreValid(): Boolean {
@@ -145,6 +142,5 @@ class LoginFragment : Fragment() {
 
     companion object {
         private const val ERROR_DIALOG_BUTTON = "Ok"
-        private const val HOME_FRAGMENT_ROUTE = "qualape-app://home_module/home_fragment"
     }
 }

@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import com.authentication.Authentication
 import com.LoginViewModel
 import com.database.Database
@@ -14,6 +13,7 @@ import com.domain.commons.Verifier.isPasswordValid
 import com.domain.model.UserInfo
 import com.login.R
 import com.login.databinding.FragmentCreatePasswordBinding
+import com.navigation.navigateWithAction
 import com.qds.MainDialog.Companion.buildMainDialog
 import com.qds.feathersAnimation
 import com.qds.setOnClickListenerWithAnimation
@@ -69,7 +69,7 @@ class CreatePasswordFragment : Fragment() {
     private fun handleSuccess(userInfo: UserInfo) {
         Database.saveUserData(userInfo) { wasSuccessful ->
             if (wasSuccessful) {
-                findNavController().navigate(R.id.action_createPasswordFragment_to_loginFragment)
+                navigateWithAction(R.id.action_createPasswordFragment_to_loginFragment)
             } else {
                 // TODO () -> Arranjar forma recursiva inteligente de tentar novamente até conseguir
             }

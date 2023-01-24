@@ -32,4 +32,6 @@ android {
 
 dependencies {
 
+    implementation androidDependencies.values()
+    implementation navigationDependencies.values()
 }

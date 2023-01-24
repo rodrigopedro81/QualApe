@@ -39,9 +39,10 @@ dependencies {
     implementation project(path:':authentication')
     implementation project(path:':domain')
     implementation project(path:':database')
+    implementation project(path:':navigation')
 
     implementation androidDependencies.values()
     implementation testDependencies.values()
     implementation koinDependencies.values()
-    implementation navigationDependencies.values()
+
 }
