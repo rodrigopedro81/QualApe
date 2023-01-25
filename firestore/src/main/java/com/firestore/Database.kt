@@ -1,6 +1,5 @@
 package com.firestore
 
-import android.util.Log
 import com.firestore.Constants.ATTRIBUTE_FOOD_ID_LIST
 import com.firestore.Constants.ATTRIBUTE_PRODUCT_ID_LIST
 import com.firestore.Constants.ATTRIBUTE_SERVICE_ID_LIST
@@ -18,6 +17,7 @@ import com.domain.model.Service
 import com.domain.model.UserInfo
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.session.LoggedUser
 
@@ -116,9 +116,27 @@ class Database : FirestoreRepository {
         }
     }
 
-    override fun getFoods() {
-        getFoodCollection().get().addOnSuccessListener {
-            Log.d("TESTE", "Documento indice 0 de comidas" + it.documents.get(0).toString())
+    override fun getFoods(
+        onComplete: (foodList: List<Food>?) -> Unit
+    ) {
+        getFoodCollection().get().addOnCompleteListener {
+            onComplete.invoke(it.result.documents.mapNotNull { it.toObject<Food>() })
+        }
+    }
+
+    override fun getServices(
+        onComplete: (serviceList: List<Service>?) -> Unit
+    ) {
+        getServiceCollection().get().addOnCompleteListener {
+            onComplete.invoke(it.result.documents.mapNotNull { it.toObject<Service>() })
+        }
+    }
+
+    override fun getProducts(
+        onComplete: (productList: List<Product>?) -> Unit
+    ) {
+        getProductCollection().get().addOnCompleteListener {
+            onComplete.invoke(it.result.documents.mapNotNull { it.toObject<Product>() })
         }
     }
 

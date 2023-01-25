@@ -12,7 +12,7 @@ class HomeViewModel(
 
 
     fun fetchItems() {
-        database.getFoods()
+
     }
 
     fun saveService(

@@ -35,5 +35,15 @@ interface FirestoreRepository {
         onFailure: () -> Unit
     )
 
-    fun getFoods()
+    fun getFoods(
+        onComplete: (foodList: List<Food>?) -> Unit,
+    )
+
+    fun getServices(
+        onComplete: (serviceList: List<Service>?) -> Unit,
+    )
+
+    fun getProducts(
+        onComplete: (productList: List<Product>?) -> Unit,
+    )
 }
