@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace 'com.database'
+    namespace 'com.firestore'
     compileSdk 32
 
     defaultConfig {

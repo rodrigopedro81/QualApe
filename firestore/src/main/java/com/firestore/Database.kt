@@ -1,5 +1,6 @@
 package com.firestore
 
+import android.util.Log
 import com.firestore.Constants.ATTRIBUTE_FOOD_ID_LIST
 import com.firestore.Constants.ATTRIBUTE_PRODUCT_ID_LIST
 import com.firestore.Constants.ATTRIBUTE_SERVICE_ID_LIST
@@ -20,7 +21,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.session.LoggedUser
 
-class Database: FirestoreRepository {
+class Database : FirestoreRepository {
 
     private fun getFirestoreInstance() = Firebase.firestore
 
@@ -112,6 +113,12 @@ class Database: FirestoreRepository {
                 }
         }.addOnFailureListener {
             onFailure.invoke()
+        }
+    }
+
+    override fun getFoods() {
+        getFoodCollection().get().addOnSuccessListener {
+            Log.d("TESTE", "Documento indice 0 de comidas" + it.documents.get(0).toString())
         }
     }
 

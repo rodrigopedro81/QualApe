@@ -34,4 +34,6 @@ interface FirestoreRepository {
         onSuccess: () -> Unit,
         onFailure: () -> Unit
     )
+
+    fun getFoods()
 }

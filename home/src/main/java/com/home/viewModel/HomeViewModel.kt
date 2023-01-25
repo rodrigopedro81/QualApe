@@ -11,7 +11,9 @@ class HomeViewModel(
 ): ViewModel() {
 
 
-    fun fetchItems() = listOf<Product>()
+    fun fetchItems() {
+        database.getFoods()
+    }
 
     fun saveService(
         service: Service,
