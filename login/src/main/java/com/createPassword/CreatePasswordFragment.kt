@@ -8,7 +8,7 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import com.authentication.Authentication
 import com.viewModel.RegisterViewModel
-import com.database.Database
+import com.firestore.Database
 import com.domain.commons.Verifier.isPasswordValid
 import com.domain.model.UserInfo
 import com.login.R

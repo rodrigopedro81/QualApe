@@ -1,7 +1,7 @@
 package com.home.viewModel
 
 import androidx.lifecycle.ViewModel
-import com.database.FirestoreRepository
+import com.firestore.FirestoreRepository
 import com.domain.model.Food
 import com.domain.model.Product
 import com.domain.model.Service

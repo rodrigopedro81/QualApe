@@ -37,7 +37,7 @@ dependencies {
 
     implementation project(path:':designsystem')
     implementation project(path:':domain')
-    implementation project(path:':database')
+    implementation project(path: ':firestore')
 
     implementation androidDependencies.values()
     implementation testDependencies.values()

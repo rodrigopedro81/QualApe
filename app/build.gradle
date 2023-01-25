@@ -44,7 +44,7 @@ dependencies {
     implementation project(path:':login')
     implementation project(path:':home')
     implementation project(path:':authentication')
-    implementation project(path:':database')
+    implementation project(path: ':firestore')
 
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.10'
     implementation 'com.google.firebase:firebase-common-ktx:20.3.0'

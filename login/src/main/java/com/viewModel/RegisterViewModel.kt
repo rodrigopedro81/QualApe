@@ -2,7 +2,7 @@ package com.viewModel
 
 import androidx.lifecycle.ViewModel
 import com.authentication.Authenticator
-import com.database.FirestoreRepository
+import com.firestore.FirestoreRepository
 import com.domain.model.UserInfo
 
 class RegisterViewModel(

@@ -2,7 +2,7 @@ package com.viewModel
 
 import androidx.lifecycle.ViewModel
 import com.authentication.Authenticator
-import com.database.FirestoreRepository
+import com.firestore.FirestoreRepository
 
 class LoginViewModule(
     private val authenticator: Authenticator,

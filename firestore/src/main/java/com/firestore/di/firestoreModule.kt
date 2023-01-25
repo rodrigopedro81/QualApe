@@ -1,7 +1,7 @@
-package com.database.di
+package com.firestore.di
 
-import com.database.Database
-import com.database.FirestoreRepository
+import com.firestore.Database
+import com.firestore.FirestoreRepository
 import org.koin.dsl.module
 
 val firestoreModule = module {

@@ -1,4 +1,4 @@
-package com.database
+package com.firestore
 
 import com.domain.model.Food
 import com.domain.model.Product

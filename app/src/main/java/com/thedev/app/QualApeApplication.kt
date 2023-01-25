@@ -2,7 +2,7 @@ package com.thedev.app
 
 import android.app.Application
 import com.authentication.authenticationModule
-import com.database.di.firestoreModule
+import com.firestore.di.firestoreModule
 import com.di.loginModule
 import com.google.firebase.FirebaseApp
 import com.home.di.homeModule
