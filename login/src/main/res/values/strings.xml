@@ -18,4 +18,6 @@
     <string name="entrar">Entrar</string>
     <string name="register_text_button">Avançar</string>
     <string name="criar_minha_conta">Criar minha conta</string>
+    <string name="criar_conta">Criar conta</string>
+    <string name="voltar">Voltar</string>
 </resources>
