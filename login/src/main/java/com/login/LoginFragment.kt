@@ -6,8 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
-import com.authentication.Authentication
-import com.database.Database.fetchUserDataForSessionModule
 import com.domain.commons.Verifier.isEmailValid
 import com.domain.commons.Verifier.isPasswordValid
 import com.login.databinding.FragmentLoginBinding
@@ -18,11 +16,14 @@ import com.qds.MainDialog.Companion.buildMainDialog
 import com.qds.fadeOut
 import com.qds.feathersAnimation
 import com.qds.setOnClickListenerWithAnimation
+import com.viewModel.LoginViewModule
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginFragment : Fragment() {
 
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
+    private val viewModel : LoginViewModule by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,9 +31,18 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentLoginBinding.inflate(inflater)
+        updateLoginButtonState()
+        binding.root.feathersAnimation()
+        setupButtons()
+        setupEditTextListeners()
+        viewModel.checkIfUserIsLoggedIn { isLoggedIn, userEmail ->
+            if (isLoggedIn) userEmail?.let { startHomeModule() }
+        }
+        return binding.root
+    }
+
+    private fun setupButtons() {
         with(binding) {
-            updateLoginButtonState()
-            root.feathersAnimation()
             mainButtonCreateAccount.setOnClickListenerWithAnimation {
                 root.fadeOut {
                     navigateWithAction(R.id.loginFragmentToRegisterFragment)
@@ -40,7 +50,7 @@ class LoginFragment : Fragment() {
             }
             mainButtonLogin.setOnClickListenerWithAnimation {
                 if (allFieldsAreValid()) {
-                    Authentication.login(
+                    viewModel.login(
                         email = mainEditTextEmailLayout.text,
                         password = mainEditTextPasswordLayout.text,
                         callback = { isSuccessful, errorMessage ->
@@ -49,6 +59,11 @@ class LoginFragment : Fragment() {
                     )
                 }
             }
+        }
+    }
+
+    private fun setupEditTextListeners() {
+        with(binding) {
             mainEditTextEmailLayout.editText.doAfterTextChanged {
                 if (it.toString().isNotEmpty()) {
                     if (it.toString().isEmailValid()) {
@@ -70,25 +85,6 @@ class LoginFragment : Fragment() {
                 }
             }
         }
-        return binding.root
-    }
-
-    override fun onResume() {
-        super.onResume()
-        if (Authentication.userIsAuthenticated()) {
-            Authentication.userEmail()?.let { userEmail ->
-                buildMainDialog(
-                    context = requireContext(),
-                    title = "Você já está logado",
-                    description = "Detectamos que você logou recentemente no app com o email: $userEmail ",
-                    buttonClickListener = {
-                        startHomeModule(userEmail)
-                        it.dismiss()
-                    },
-                    buttonText = "Ok!"
-                )
-            }
-        }
     }
 
     private fun updateLoginButtonState() {
@@ -101,15 +97,14 @@ class LoginFragment : Fragment() {
 
     private fun handleLoginAuth(isSuccessful: Boolean, errorMessage: String?) {
         if (isSuccessful) {
-            val userEmail = binding.mainEditTextEmailLayout.text
-            startHomeModule(userEmail)
+            startHomeModule()
         } else {
             showError(errorMessage)
         }
     }
 
-    private fun startHomeModule(userEmail: String) {
-        fetchUserDataForSessionModule(userEmail) { fetchedSuccessfully ->
+    private fun startHomeModule() {
+        viewModel.fetchUserDataForSessionModule { fetchedSuccessfully ->
             if (fetchedSuccessfully)
                 navigateWithRoute(Routes.HOME_FRAGMENT_ROUTE)
             else

@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import com.authentication.Authentication
-import com.LoginViewModel
+import com.viewModel.RegisterViewModel
 import com.database.Database
 import com.domain.commons.Verifier.isPasswordValid
 import com.domain.model.UserInfo
@@ -23,7 +23,7 @@ class CreatePasswordFragment : Fragment() {
 
     private var _binding: FragmentCreatePasswordBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: LoginViewModel by sharedViewModel()
+    private val viewModel: RegisterViewModel by sharedViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -36,23 +36,26 @@ class CreatePasswordFragment : Fragment() {
             }
             mainButtonCreateAccount.setOnClickListenerWithAnimation {
                 if (allFieldsAreValid()) {
-                    with(viewModel.userInfo) {
-                        Authentication.register(
-                            email, binding.mainEditTextCreatePassword.text
-                        ) { isSuccessful, errorMessage ->
-                            if (isSuccessful) {
-                                handleSuccess(this)
-                            } else {
-                                handleError(errorMessage)
-                            }
-                        }
-                    }
+                    val accountPassword = binding.mainEditTextConfirmPassword.text
+                    registerUser(accountPassword)
                 }
-
             }
         }
         setupFieldListeners()
         return binding.root
+    }
+
+    private fun registerUser(accountPassword: String) {
+        viewModel.register(
+            password = accountPassword,
+            onComplete = { isSuccessful, errorMessage ->
+                if (isSuccessful) {
+                    handleSuccess()
+                } else {
+                    handleError(errorMessage)
+                }
+            }
+        )
     }
 
     private fun handleError(errorMessage: String?) {
@@ -66,8 +69,8 @@ class CreatePasswordFragment : Fragment() {
         }
     }
 
-    private fun handleSuccess(userInfo: UserInfo) {
-        Database.saveUserData(userInfo) { wasSuccessful ->
+    private fun handleSuccess() {
+        viewModel.saveUserData { wasSuccessful ->
             if (wasSuccessful) {
                 navigateWithAction(R.id.action_createPasswordFragment_to_loginFragment)
             } else {

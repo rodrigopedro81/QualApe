@@ -3,16 +3,15 @@ package com.authentication
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
-object Authentication {
+class Authentication: Authenticator {
 
-    private const val UNKNOWN_ERROR = "An Unknown error has occurred"
     private val auth = Firebase.auth
 
-    fun userIsAuthenticated() = auth.currentUser != null
+    override fun userIsAuthenticated() = auth.currentUser != null
 
-    fun userEmail() = auth.currentUser?.email
+    override fun userEmail() = auth.currentUser?.email
 
-    fun login(
+    override fun login(
         email:String,
         password:String,
         callback: (isSuccessful: Boolean, errorMessage: String?) -> Unit
@@ -22,7 +21,7 @@ object Authentication {
         }
     }
 
-    fun register(
+    override fun register(
         email: String,
         password: String,
         callback: (isSuccessful: Boolean, errorMessage: String?) -> Unit
@@ -30,5 +29,9 @@ object Authentication {
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener {
             callback.invoke(it.isSuccessful, it.exception?.message ?: UNKNOWN_ERROR)
         }
+    }
+
+    companion object {
+        private const val UNKNOWN_ERROR = "An Unknown error has occurred"
     }
 }

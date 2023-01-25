@@ -36,7 +36,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-auth-ktx:21.1.0'
 
-
     implementation androidDependencies.values()
     implementation testDependencies.values()
+    implementation koinDependencies.values()
 }

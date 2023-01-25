@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
-import com.LoginViewModel
+import com.viewModel.RegisterViewModel
 import com.domain.commons.Verifier.isApartmentValid
 import com.domain.commons.Verifier.isBlockValid
 import com.domain.commons.Verifier.isEmailValid
@@ -21,7 +21,7 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class RegisterFragment : Fragment() {
 
-    private val viewModel: LoginViewModel by sharedViewModel()
+    private val viewModel: RegisterViewModel by sharedViewModel()
     private var _binding: FragmentRegisterBinding? = null
     private val binding get() = _binding!!
 

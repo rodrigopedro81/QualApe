@@ -20,11 +20,11 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.session.LoggedUser
 
-object Database {
+class Database: FirestoreRepository {
 
     private fun getFirestoreInstance() = Firebase.firestore
 
-    fun saveUserData(
+    override fun saveUserData(
         userInfo: UserInfo,
         onComplete: (wasSuccessful: Boolean) -> Unit
     ) {
@@ -33,7 +33,7 @@ object Database {
         }
     }
 
-    fun fetchUserDataForSessionModule(
+    override fun fetchUserDataForSessionModule(
         userEmail: String,
         onComplete: (wasSuccessful: Boolean) -> Unit
     ) {
@@ -46,10 +46,10 @@ object Database {
         }
     }
 
-    fun saveFood(
+    override fun saveFood(
         newFood: Food,
-        onSuccess: () -> Unit = {},
-        onFailure: () -> Unit = {}
+        onSuccess: () -> Unit,
+        onFailure: () -> Unit
     ) {
         val newFoodDocumentReference = getFoodCollection().document()
         val userDocumentReference = getUserCollection().document(LoggedUser.info.email)
@@ -69,10 +69,10 @@ object Database {
         }
     }
 
-    fun saveProduct(
+    override fun saveProduct(
         newProduct: Product,
-        onSuccess: () -> Unit = {},
-        onFailure: () -> Unit = {}
+        onSuccess: () -> Unit,
+        onFailure: () -> Unit
     ) {
         val newProductDocumentReference = getProductCollection().document()
         val userDocumentReference = getUserCollection().document(LoggedUser.info.email)
@@ -92,10 +92,10 @@ object Database {
         }
     }
 
-    fun saveService(
+    override fun saveService(
         newService: Service,
-        onSuccess: () -> Unit = {},
-        onFailure: () -> Unit = {}
+        onSuccess: () -> Unit,
+        onFailure: () -> Unit
     ) {
         val newServiceDocumentReference = getServiceCollection().document()
         val userDocumentReference = getUserCollection().document(LoggedUser.info.email)
