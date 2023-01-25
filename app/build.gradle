@@ -36,10 +36,14 @@ android {
     }
 }
 
+configurations {
+    debugImplementation.exclude group: "junit", module: "junit"
+}
+
 dependencies {
     implementation project(path:':login')
     implementation project(path:':home')
-
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.10'
     implementation 'com.google.firebase:firebase-common-ktx:20.3.0'
     implementation androidDependencies.values()
     implementation testDependencies.values()
